@@ -3,7 +3,9 @@ package com.golden.transport.service.dto;
 import com.golden.transport.domain.Vehicule;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A DTO for the {@link Vehicule} entity.
@@ -12,9 +14,8 @@ public class VehiculeDTO implements Serializable {
     
     private Long id;
 
+    private Set<OperLineVehDTO> operations = new HashSet<>();
 
-    private Long vehiculesId;
-    
     public Long getId() {
         return id;
     }
@@ -23,40 +24,11 @@ public class VehiculeDTO implements Serializable {
         this.id = id;
     }
 
-    public Long getVehiculesId() {
-        return vehiculesId;
+    public Set<OperLineVehDTO> getOperations() {
+        return operations;
     }
 
-    public void setVehiculesId(Long tragetId) {
-        this.vehiculesId = tragetId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        VehiculeDTO vehiculeDTO = (VehiculeDTO) o;
-        if (vehiculeDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), vehiculeDTO.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
-
-    @Override
-    public String toString() {
-        return "VehiculeDTO{" +
-            "id=" + getId() +
-            ", vehiculesId=" + getVehiculesId() +
-            "}";
+    public void setOperations(Set<OperLineVehDTO> operations) {
+        this.operations = operations;
     }
 }

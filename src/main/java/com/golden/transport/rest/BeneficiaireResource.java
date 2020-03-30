@@ -60,15 +60,16 @@ public class BeneficiaireResource {
      * @throws Exception 
      */
     @PostMapping("/beneficiaires")
-    public ResponseEntity<BeneficiaireDTO> createBeneficiaire(@RequestBody BeneficiaireDTO beneficiaireDTO) throws Exception {
+    public BeneficiaireDTO createBeneficiaire(@RequestBody BeneficiaireDTO beneficiaireDTO) throws Exception {
         log.debug("REST request to save Beneficiaire : {}", beneficiaireDTO);
         if (beneficiaireDTO.getId() != null) {
             throw new Exception("A new beneficiaire cannot already have an ID"+ENTITY_NAME+"idexists");
         }
         BeneficiaireDTO result = beneficiaireService.save(beneficiaireDTO);
-        return ResponseEntity.created(new URI("/api/beneficiaires/" + result.getId()))
+        return result;
+      /*  return ResponseEntity.created(new URI("/api/beneficiaires/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false,ENTITY_NAME, result.getId().toString()))
-            .body(result);
+            .body(result);*/
     }
 
     /**

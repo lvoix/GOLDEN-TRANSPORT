@@ -1,14 +1,12 @@
 package com.golden.transport.domain;
 
+import javax.persistence.*;
 import java.io.Serializable;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import com.golden.transport.domain.*;
 
 /**
  * A Operation.
@@ -23,19 +21,26 @@ public class Operation implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Traget traget;
-
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Societe societe;
-
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
+    @JoinColumn(name = "BENEFICIAIRE_ID")
     private Beneficiaire beneficiaire;
 
-    
+    @OneToMany(mappedBy = "conducteurs", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<OperationLineConducteurs> conducteurs = new HashSet<>();
+
+
+    @OneToMany(mappedBy = "vehicules", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<OperationLineVehicules> vehicules = new HashSet<>();
+
+
+    @OneToOne
+    @JoinColumn(name="TARGETID", referencedColumnName="id")
+    protected Target target;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
     public Long getId() {
         return id;
     }
@@ -44,45 +49,37 @@ public class Operation implements Serializable {
         this.id = id;
     }
 
-    public Traget getTraget() {
-        return traget;
-    }
-
-    public Operation traget(Traget traget) {
-        this.traget = traget;
-        return this;
-    }
-
-    public void setTraget(Traget traget) {
-        this.traget = traget;
-    }
-
-    public Societe getSociete() {
-        return societe;
-    }
-
-    public Operation societe(Societe societe) {
-        this.societe = societe;
-        return this;
-    }
-
-    public void setSociete(Societe societe) {
-        this.societe = societe;
-    }
-
     public Beneficiaire getBeneficiaire() {
         return beneficiaire;
-    }
-
-    public Operation beneficiaire(Beneficiaire beneficiaire) {
-        this.beneficiaire = beneficiaire;
-        return this;
     }
 
     public void setBeneficiaire(Beneficiaire beneficiaire) {
         this.beneficiaire = beneficiaire;
     }
-    
+
+    public Set<OperationLineConducteurs> getConducteurs() {
+        return conducteurs;
+    }
+
+    public void setConducteurs(Set<OperationLineConducteurs> conducteurs) {
+        this.conducteurs = conducteurs;
+    }
+
+    public Set<OperationLineVehicules> getVehicules() {
+        return vehicules;
+    }
+
+    public void setVehicules(Set<OperationLineVehicules> vehicules) {
+        this.vehicules = vehicules;
+    }
+
+    public Target getTarget() {
+        return target;
+    }
+
+    public void setTarget(Target target) {
+        this.target = target;
+    }
 
     @Override
     public boolean equals(Object o) {

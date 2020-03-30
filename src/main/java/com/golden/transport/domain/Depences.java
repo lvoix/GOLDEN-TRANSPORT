@@ -1,15 +1,10 @@
 package com.golden.transport.domain;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 /**
- * A Depences.
+ * A Station.
  */
 @Entity
 @Table(name = "depences")
@@ -29,7 +24,10 @@ public class Depences implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     @Override
     public boolean equals(Object o) {

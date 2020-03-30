@@ -9,15 +9,13 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Vehicule} and its DTO {@link VehiculeDTO}.
  */
-@Mapper(componentModel = "spring", uses = {TragetMapper.class})
+@Mapper(componentModel = "spring", uses = {TargetMapper.class})
 public interface VehiculeMapper extends EntityMapper<VehiculeDTO, Vehicule> {
 
-    @Mapping(source = "vehicules.id", target = "vehiculesId")
+    @Mapping(source = "id", target = "id")
     VehiculeDTO toDto(Vehicule vehicule);
 
-    @Mapping(target = "chauffeurs", ignore = true)
-    @Mapping(target = "removeChauffeur", ignore = true)
-    @Mapping(source = "vehiculesId", target = "vehicules")
+    @Mapping(source = "id", target = "id")
     Vehicule toEntity(VehiculeDTO vehiculeDTO);
 
     default Vehicule fromId(Long id) {

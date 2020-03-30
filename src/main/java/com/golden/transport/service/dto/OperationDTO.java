@@ -1,24 +1,23 @@
 package com.golden.transport.service.dto;
 
-import com.golden.transport.domain.Operation;
-
 import java.io.Serializable;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * A DTO for the {@link Operation} entity.
  */
 public class OperationDTO implements Serializable {
-    
+
     private Long id;
 
+    private BeneficiaireDTO beneficiaire;
 
-    private Long tragetId;
+    // private Set<OperLineConDTO> conducteurs = new HashSet<>();
 
-    private Long societeId;
+   // private Set<OperLineVehDTO> vehicules = new HashSet<>();
 
-    private Long beneficiaireId;
-    
+    protected TargetDTO target;
+
     public Long getId() {
         return id;
     }
@@ -27,58 +26,35 @@ public class OperationDTO implements Serializable {
         this.id = id;
     }
 
-    public Long getTragetId() {
-        return tragetId;
+    public BeneficiaireDTO getBeneficiaire() {
+        return beneficiaire;
     }
 
-    public void setTragetId(Long tragetId) {
-        this.tragetId = tragetId;
+    public void setBeneficiaire(BeneficiaireDTO beneficiaire) {
+        this.beneficiaire = beneficiaire;
+    }
+/*
+    public Set<OperLineConDTO> getConducteurs() {
+        return conducteurs;
     }
 
-    public Long getSocieteId() {
-        return societeId;
+    public void setConducteurs(Set<OperLineConDTO> conducteurs) {
+        this.conducteurs = conducteurs;
     }
 
-    public void setSocieteId(Long societeId) {
-        this.societeId = societeId;
+    public Set<OperLineVehDTO> getVehicules() {
+        return vehicules;
     }
 
-    public Long getBeneficiaireId() {
-        return beneficiaireId;
+    public void setVehicules(Set<OperLineVehDTO> vehicules) {
+        this.vehicules = vehicules;
+    }*/
+
+    public TargetDTO getTarget() {
+        return target;
     }
 
-    public void setBeneficiaireId(Long beneficiaireId) {
-        this.beneficiaireId = beneficiaireId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        OperationDTO operationDTO = (OperationDTO) o;
-        if (operationDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), operationDTO.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
-
-    @Override
-    public String toString() {
-        return "OperationDTO{" +
-            "id=" + getId() +
-            ", tragetId=" + getTragetId() +
-            ", societeId=" + getSocieteId() +
-            ", beneficiaireId=" + getBeneficiaireId() +
-            "}";
+    public void setTarget(TargetDTO target) {
+        this.target = target;
     }
 }

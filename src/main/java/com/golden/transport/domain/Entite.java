@@ -1,6 +1,7 @@
 package com.golden.transport.domain;
 
-import com.golden.transport.domain.Operation;
+import com.golden.transport.domain.Beneficiaire;
+import com.golden.transport.domain.Conducteur;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,11 +9,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * A Beneficiaire.
+ * A Societe.
  */
 @Entity
-@Table(name = "beneficiaire") 
-public class Beneficiaire implements Serializable {
+@Table(name = "entite")
+public class Entite implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -23,11 +24,11 @@ public class Beneficiaire implements Serializable {
     @Embedded
     private Address address;
 
-    @OneToMany(targetEntity = Operation.class , mappedBy="beneficiaire", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    protected Set<Operation> operations = new HashSet<>();
+    @OneToMany(mappedBy = "entite")
+    private Set<Conducteur> conducteurs = new HashSet<>();
 
-    @OneToMany(targetEntity = Contact.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "beneficiaire", orphanRemoval = true)
-    private Set<Contact> contacts = new HashSet<>();
+    @OneToMany(mappedBy = "entites")
+    private Set<Vehicule> vehicules = new HashSet<>();
 
 
     public Long getId() {
@@ -42,20 +43,20 @@ public class Beneficiaire implements Serializable {
         return serialVersionUID;
     }
 
-    public Set<Operation> getOperations() {
-        return operations;
+    public Set<Conducteur> getConducteurs() {
+        return conducteurs;
     }
 
-    public void setOperations(Set<Operation> operations) {
-        this.operations = operations;
+    public void setConducteurs(Set<Conducteur> conducteurs) {
+        this.conducteurs = conducteurs;
     }
 
-    public Set<Contact> getContacts() {
-        return contacts;
+    public Set<Vehicule> getVehicules() {
+        return vehicules;
     }
 
-    public void setContacts(Set<Contact> contacts) {
-        this.contacts = contacts;
+    public void setVehicules(Set<Vehicule> vehicules) {
+        this.vehicules = vehicules;
     }
 
     public Address getAddress() {
@@ -71,10 +72,10 @@ public class Beneficiaire implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Beneficiaire)) {
+        if (!(o instanceof Entite)) {
             return false;
         }
-        return id != null && id.equals(((Beneficiaire) o).id);
+        return id != null && id.equals(((Entite) o).id);
     }
 
     @Override
@@ -84,7 +85,7 @@ public class Beneficiaire implements Serializable {
 
     @Override
     public String toString() {
-        return "Beneficiaire{" +
+        return "Entite{" +
             "id=" + getId() +
             "}";
     }

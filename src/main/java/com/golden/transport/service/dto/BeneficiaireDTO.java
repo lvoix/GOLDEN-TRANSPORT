@@ -11,14 +11,22 @@ import java.util.Objects;
 public class BeneficiaireDTO implements Serializable {
     
     private Long id;
+    private AddressDTO address;
 
-    
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public AddressDTO getAddress() {
+        return address;
+    }
+
+    public void setAddress(AddressDTO address) {
+        this.address = address;
     }
 
     @Override

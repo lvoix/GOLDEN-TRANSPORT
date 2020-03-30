@@ -12,7 +12,11 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {})
 public interface DepencesMapper extends EntityMapper<DepencesDTO, Depences> {
 
+    @Mapping(source = "id", target = "id")
+    DepencesDTO toDto(Depences depences);
 
+    @Mapping(source = "id", target = "id")
+    Depences toEntity(DepencesDTO depencesDTO);
 
     default Depences fromId(Long id) {
         if (id == null) {
