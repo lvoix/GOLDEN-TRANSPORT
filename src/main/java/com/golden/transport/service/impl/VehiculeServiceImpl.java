@@ -9,10 +9,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -43,6 +48,11 @@ public class VehiculeServiceImpl implements VehiculeService {
     public VehiculeDTO save(VehiculeDTO vehiculeDTO) {
         log.debug("Request to save Vehicule : {}", vehiculeDTO);
         Vehicule vehicule = vehiculeMapper.toEntity(vehiculeDTO);
+        vehicule.setUpdateDateTime(vehiculeDTO.getUpdateDateTime());
+        vehicule.setMiseCirculation(vehiculeDTO.getMiseCirculation());
+        vehicule.setDateMiseCirculation(vehiculeDTO.getDateMiseCirculation());
+        vehicule.setDateCreation(new Date());
+        vehicule.setEmail(vehiculeDTO.getEmail());
         vehicule = vehiculeRepository.save(vehicule);
         return vehiculeMapper.toDto(vehicule);
     }
@@ -53,12 +63,18 @@ public class VehiculeServiceImpl implements VehiculeService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    @Override
-    @Transactional(readOnly = true)
-    public Page<VehiculeDTO> findAll(Pageable pageable) {
+
+     @Override
+     @Transactional(readOnly = true)
+    public List<VehiculeDTO> findAll(Integer pageNo, Integer pageSize, String sortBy) {
         log.debug("Request to get all Vehicules");
-        return vehiculeRepository.findAll(pageable)
-            .map(vehiculeMapper::toDto);
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+        Page<VehiculeDTO> pagedResult = vehiculeRepository.findAll(paging).map(vehiculeMapper::toDto);
+         if(pagedResult.hasContent()) {
+            return pagedResult.getContent();
+        } else {
+            return new ArrayList<VehiculeDTO>();
+        }
     }
 
     /**

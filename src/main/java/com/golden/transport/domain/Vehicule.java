@@ -1,5 +1,6 @@
 package com.golden.transport.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.golden.transport.domain.Operation;
 import com.golden.transport.enumeration.VehiculeColor;
@@ -7,9 +8,11 @@ import com.golden.transport.enumeration.VehiculeGenre;
 import com.golden.transport.enumeration.VehiculeStatus;
 import com.golden.transport.enumeration.VehiculeType;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,6 +21,7 @@ import java.util.Set;
  * A Vehicule.
  */
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "vehicule")
 public class Vehicule implements Serializable {
 
@@ -30,8 +34,7 @@ public class Vehicule implements Serializable {
     @Column(name = "MATRICULE", length = 255)
     private String matricule;
 
-    @Column(name = "TYPE",length = 255)
-    @Enumerated(EnumType.STRING)
+    @Column(name = "TYPE", length = 255)
     private VehiculeType VehiculeType;
 
     @Column(name = "VEHICULE_REF", length = 255)
@@ -51,6 +54,9 @@ public class Vehicule implements Serializable {
     @Column(name = "MODEL", length = 255)
     private String Model;
 
+    @Column(name = "VEH_EMAIL", length = 255)
+    private String email;
+
     @Column(name = "STATUS", length = 255)
     private VehiculeStatus status;
 
@@ -61,9 +67,6 @@ public class Vehicule implements Serializable {
     @Enumerated(EnumType.STRING)
     private VehiculeColor VColor;
 
-    @Column(name = "NPARC", length = 255)
-    private Integer NParc;
-
     @Column(name = "TURNOVER", length = 255)
     private Float turnover;
 
@@ -72,6 +75,9 @@ public class Vehicule implements Serializable {
 
     @Column(name = "NBCHEVALIERS", length = 255)
     private Integer Nb_Chevalier;
+
+    @Column(name = "CAPACITE", length = 255)
+    private Integer Capacite;
 
     @Column(name = "IndexKM", length = 255)
     private Float IndexKM;
@@ -87,10 +93,21 @@ public class Vehicule implements Serializable {
     private Date ModifyDate;
 
 
-    @OneToMany(mappedBy = "vehicules", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private Set<OperationLineVehicules> operations = new HashSet<>();
+    @Column(name = "DATE_MISEENCIRCULATION")
+    //@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone="GMT")
+    private Date dateMiseCirculation;
 
-    @ManyToOne
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone="GMT")
+    private Date updateDateTime;
+
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone="GMT")
+    private Date miseCirculation;
+
+    @OneToMany(mappedBy = "vehicules", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<OperationLineVehicules> Lineoperations = new HashSet<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ENTITE_ID")
     private Entite entites;
 
@@ -106,12 +123,12 @@ public class Vehicule implements Serializable {
         this.id = id;
     }
 
-    public Set<Operation> getOperations() {
-        return operations;
+    public Set<OperationLineVehicules> getLineoperations() {
+        return Lineoperations;
     }
 
-    public void setOperations(Set<Operation> operations) {
-        this.operations = operations;
+    public void setLineoperations(Set<OperationLineVehicules> lineoperations) {
+        Lineoperations = lineoperations;
     }
 
     public Entite getEntites() {
@@ -122,7 +139,7 @@ public class Vehicule implements Serializable {
         this.entites = entites;
     }
 
-    public String getMatricule() {
+   public String getMatricule() {
         return matricule;
     }
 
@@ -130,11 +147,11 @@ public class Vehicule implements Serializable {
         this.matricule = matricule;
     }
 
-    public com.golden.transport.enumeration.VehiculeType getVehiculeType() {
+    public VehiculeType getVehiculeType() {
         return VehiculeType;
     }
 
-    public void setVehiculeType(com.golden.transport.enumeration.VehiculeType vehiculeType) {
+    public void setVehiculeType(VehiculeType vehiculeType) {
         VehiculeType = vehiculeType;
     }
 
@@ -202,14 +219,6 @@ public class Vehicule implements Serializable {
         this.VColor = VColor;
     }
 
-    public Integer getNParc() {
-        return NParc;
-    }
-
-    public void setNParc(Integer NParc) {
-        this.NParc = NParc;
-    }
-
     public Float getTurnover() {
         return turnover;
     }
@@ -264,6 +273,46 @@ public class Vehicule implements Serializable {
 
     public void setModifyDate(Date modifyDate) {
         ModifyDate = modifyDate;
+    }
+
+    public Date getDateMiseCirculation() {
+        return dateMiseCirculation;
+    }
+
+    public void setDateMiseCirculation(Date dateMiseCirculation) {
+        this.dateMiseCirculation = dateMiseCirculation;
+    }
+
+    public Integer getCapacite() {
+        return Capacite;
+    }
+
+    public void setCapacite(Integer capacite) {
+        Capacite = capacite;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getUpdateDateTime() {
+        return updateDateTime;
+    }
+
+    public void setUpdateDateTime(Date updateDateTime) {
+        this.updateDateTime = updateDateTime;
+    }
+
+    public Date getMiseCirculation() {
+        return miseCirculation;
+    }
+
+    public void setMiseCirculation(Date miseCirculation) {
+        this.miseCirculation = miseCirculation;
     }
 
     @Override

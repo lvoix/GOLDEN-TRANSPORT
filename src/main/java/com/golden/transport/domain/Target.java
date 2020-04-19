@@ -24,6 +24,18 @@ public class Target implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "POINTA", length = 255)
+    private String pointA;
+
+    @Column(name = "POINTB", length = 255)
+    private String pointB;
+
+    @Column(name = "KM_EUX", length = 255)
+    private String KMEUX;
+
+    @Column(name = "HEURE_EUX", length = 255)
+    private String HEUX;
+
     @OneToOne
     @JoinColumn(name = "stationDepart")
     private Station stationDepart;
@@ -44,13 +56,44 @@ public class Target implements Serializable {
     private Set<Target> targets = new HashSet<>();
 
 
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getPointA() {
+        return pointA;
+    }
+
+    public void setPointA(String pointA) {
+        this.pointA = pointA;
+    }
+
+    public String getPointB() {
+        return pointB;
+    }
+
+    public void setPointB(String pointB) {
+        this.pointB = pointB;
+    }
+
+    public String getKMEUX() {
+        return KMEUX;
+    }
+
+    public void setKMEUX(String KMEUX) {
+        this.KMEUX = KMEUX;
+    }
+
+    public String getHEUX() {
+        return HEUX;
+    }
+
+    public void setHEUX(String HEUX) {
+        this.HEUX = HEUX;
     }
 
     public Station getStationDepart() {

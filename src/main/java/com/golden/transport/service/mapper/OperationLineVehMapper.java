@@ -14,13 +14,13 @@ public interface OperationLineVehMapper extends EntityMapper<OperLineVehDTO, Ope
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "operations", target = "operations")
-        /*  @Mapping(source = "vehicules", target = "vehicules")*/
+    //@Mapping(source = "vehicules", target = "vehicules")
     OperLineVehDTO toDto(OperationLineVehicules operationLineVehicules);
 
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "operations", target = "operations")
-        /*  @Mapping(source = "vehicules", target = "vehicules")*/
+    //@Mapping(source = "vehicules", target = "vehicules")
     OperationLineVehicules toEntity(OperLineVehDTO operLineVehDTO);
 
     default OperationLineVehicules fromId(Long id) {

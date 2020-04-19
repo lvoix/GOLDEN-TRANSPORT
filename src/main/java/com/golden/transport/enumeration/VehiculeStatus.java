@@ -3,14 +3,6 @@ package com.golden.transport.enumeration;
 
 public enum VehiculeStatus {
 
-    ENABLE("enable"), DISABLE("disable");
-    private final String type;
+    ENABLE, DISABLE;
 
-    VehiculeStatus(String type) {
-        this.type = type;
-    }
-
-    public String getType() {
-        return type;
-    }
 }

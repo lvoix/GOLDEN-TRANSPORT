@@ -12,9 +12,14 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {})
 public interface EntiteMapper extends EntityMapper<EntiteDTO, Entite> {
 
+    @Mapping(source = "id", target = "id")
+    @Mapping(source = "address", target = "address")
+    EntiteDTO toDto(Entite entite);
 
-    @Mapping(target = "conducteurs", ignore = true)
+    @Mapping(source = "id", target = "id")
+    @Mapping(source = "address", target = "address")
     Entite toEntity(EntiteDTO entiteDTO);
+
 
     default Entite fromId(Long id) {
         if (id == null) {

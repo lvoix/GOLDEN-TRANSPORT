@@ -1,9 +1,11 @@
 package com.golden.transport.domain;
 
-import com.golden.transport.domain.Operation;
+import com.golden.transport.enumeration.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,6 +21,88 @@ public class Beneficiaire implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "TYPE",length = 255)
+    @Enumerated(EnumType.STRING)
+    private CustomerType customerType;
+
+    @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "DATE_CREATION", updatable = false)
+    private Date dateCreation;
+
+    @Column(name = "NAME", length = 255)
+    private String name;
+
+    @Column(name = "FIRST_NAME", length = 255)
+    private String firstName;
+
+    @Column(name = "LAST_NAME", length = 255)
+    private String lastName;
+
+    @Column(name = "MORE_REF", length = 255)
+    private String ref;
+
+    @Column(name = "WEB_SITE", length = 255)
+    private String webSite;
+
+    @Column(name = "JOB_TITLE", length = 255)
+    private String jobTitle;
+
+    @Column(name = "BEN_EMAIL", length = 255)
+    private String email;
+
+    @Column(name = "PHONE_NUMBER", length = 255)
+    private String phoneNumber;
+
+    @Column(name = "STATUS", length = 255)
+    private CustomerStatus status;
+
+    @Column(name = "BENEFICIAIRE_TYPE")
+    @Enumerated(EnumType.STRING)
+    private BeneficiaireType type;
+
+    @Column(name = "INDUSTRY")
+    @Enumerated(EnumType.STRING)
+    private Industry industry;
+
+    @Column(name = "TURNOVER", length = 255)
+    private Float turnover;
+
+    @Column(name = "SCORE_ENUM")
+    @Enumerated(EnumType.STRING)
+    private ScoreEnum score;
+
+    @Column(name = "TELEPHONE", length = 255)
+    private String telephone;
+
+    @Column(name = "FAX", length = 255)
+    private String fax;
+
+    @Column(name = "PERMITED", length = 255)
+    private Boolean permited;
+
+    @Column(name = "NAF", length = 255)
+    private String codeNAF;
+
+    @Column(name = "EMPLOYEES", length = 255)
+    private Integer employees;
+
+    @Column(name = "TWITTER", length = 255)
+    private String twitter;
+
+    @Column(name = "FACEBOOK", length = 255)
+    private String facebook;
+
+    @Column(name = "LINKEDIN", length = 255)
+    private String linkedin;
+
+    @Column(name = "BUSINESS_SECTOR", length = 255)
+    private String businessSector;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "BENEFICIAIRE_PARENT_ID")
+    Beneficiaire parent;
 
     @Embedded
     private Address address;
@@ -38,8 +122,209 @@ public class Beneficiaire implements Serializable {
         this.id = id;
     }
 
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
+    }
+
+    public CustomerType getCustomerType() {
+        return customerType;
+    }
+
+    public void setCustomerType(CustomerType customerType) {
+        this.customerType = customerType;
+    }
+
+    public Date getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getRef() {
+        return ref;
+    }
+
+    public void setRef(String ref) {
+        this.ref = ref;
+    }
+
+    public String getWebSite() {
+        return webSite;
+    }
+
+    public void setWebSite(String webSite) {
+        this.webSite = webSite;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public CustomerStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(CustomerStatus status) {
+        this.status = status;
+    }
+
+    public BeneficiaireType getType() {
+        return type;
+    }
+
+    public void setType(BeneficiaireType type) {
+        this.type = type;
+    }
+
+    public Industry getIndustry() {
+        return industry;
+    }
+
+    public void setIndustry(Industry industry) {
+        this.industry = industry;
+    }
+
+    public Float getTurnover() {
+        return turnover;
+    }
+
+    public void setTurnover(Float turnover) {
+        this.turnover = turnover;
+    }
+
+    public ScoreEnum getScore() {
+        return score;
+    }
+
+    public void setScore(ScoreEnum score) {
+        this.score = score;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getFax() {
+        return fax;
+    }
+
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
+
+    public Boolean getPermited() {
+        return permited;
+    }
+
+    public void setPermited(Boolean permited) {
+        this.permited = permited;
+    }
+
+    public String getCodeNAF() {
+        return codeNAF;
+    }
+
+    public void setCodeNAF(String codeNAF) {
+        this.codeNAF = codeNAF;
+    }
+
+    public Integer getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Integer employees) {
+        this.employees = employees;
+    }
+
+    public String getTwitter() {
+        return twitter;
+    }
+
+    public void setTwitter(String twitter) {
+        this.twitter = twitter;
+    }
+
+    public String getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(String facebook) {
+        this.facebook = facebook;
+    }
+
+    public String getLinkedin() {
+        return linkedin;
+    }
+
+    public void setLinkedin(String linkedin) {
+        this.linkedin = linkedin;
+    }
+
+    public String getBusinessSector() {
+        return businessSector;
+    }
+
+    public void setBusinessSector(String businessSector) {
+        this.businessSector = businessSector;
+    }
+
+    public Beneficiaire getParent() {
+        return parent;
+    }
+
+    public void setParent(Beneficiaire parent) {
+        this.parent = parent;
     }
 
     public Set<Operation> getOperations() {

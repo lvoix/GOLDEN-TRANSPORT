@@ -16,18 +16,18 @@ public interface OperationMapper extends EntityMapper<OperationDTO, Operation> {
 
 
       @Mapping(source = "id", target = "id")
-    //@Mapping(source = "beneficiaire", target = "beneficiaire")
-    //@Mapping(source = "conducteurs", target = "conducteurs")
-    //@Mapping(source = "vehicules", target = "vehicules")
-    //@Mapping(source = "target", target = "target")
+      //@Mapping(source = "beneficiaire", target = "beneficiaire")
+      @Mapping(source = "conducteurs", target = "conducteurs")
+      @Mapping(source = "vehicules", target = "vehicules")
+      //@Mapping(source = "target", target = "target")
     //Set<OperationDTO> toDto(Set<Operation> operation);
       OperationDTO toDto(Operation operation);
 
       @Mapping(source = "id", target = "id")
-    //@Mapping(source = "beneficiaire", target = "beneficiaire")
-   // @Mapping(source = "conducteurs", target = "conducteurs")
-    //@Mapping(source = "vehicules", target = "vehicules")
-    //@Mapping(source = "target", target = "target")
+      //@Mapping(source = "beneficiaire", target = "beneficiaire")
+      @Mapping(source = "conducteurs", target = "conducteurs")
+      @Mapping(source = "vehicules", target = "vehicules")
+     // @Mapping(source = "target", target = "target")
    // Set<Operation> toEntity(Set<OperationDTO> operationDTO);
      Operation toEntity(OperationDTO operationDTO);
 

@@ -13,7 +13,7 @@ public class OperLineVehDTO implements Serializable {
 
     private OperationDTO operations;
 
-    private VehiculeDTO vehicules;
+    //private VehiculeDTO vehicules;
 
     public Long getId() {
         return id;
@@ -31,11 +31,11 @@ public class OperLineVehDTO implements Serializable {
         this.operations = operations;
     }
 
-    public VehiculeDTO getVehicules() {
+   /* public VehiculeDTO getVehicules() {
         return vehicules;
     }
 
     public void setVehicules(VehiculeDTO vehicules) {
         this.vehicules = vehicules;
-    }
+    }*/
 }

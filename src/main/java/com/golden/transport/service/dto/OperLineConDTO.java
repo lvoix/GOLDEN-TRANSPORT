@@ -33,8 +33,7 @@ public class OperLineConDTO implements Serializable {
         this.operations = operations;
     }
 
-/*
-    public ConducteurDTO getConducteurs() {
+   /* public ConducteurDTO getConducteurs() {
         return conducteurs;
     }
 

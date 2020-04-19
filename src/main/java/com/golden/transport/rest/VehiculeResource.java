@@ -13,15 +13,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.golden.transport.service.VehiculeService;
@@ -33,6 +27,7 @@ import com.golden.transport.util.ResponseUtil;
  * REST controller for managing {@link Vehicule}.
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 public class VehiculeResource {
 
@@ -96,11 +91,13 @@ public class VehiculeResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of vehicules in body.
      */
     @GetMapping("/vehicules")
-    public ResponseEntity<List<VehiculeDTO>> getAllVehicules(Pageable pageable) {
+    public ResponseEntity<List<VehiculeDTO>> getAllVehicules(@RequestParam(defaultValue = "0")  Integer pageNo,
+                                                             @RequestParam(defaultValue = "10") Integer pageSize,
+                                                             @RequestParam(defaultValue = "id") String sortBy) {
         log.debug("REST request to get a page of Vehicules");
-        Page<VehiculeDTO> page = vehiculeService.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
+        List<VehiculeDTO> list = vehiculeService.findAll(pageNo, pageSize, sortBy);
+       // HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), list);
+        return new ResponseEntity<List<VehiculeDTO>>(list, new HttpHeaders(), HttpStatus.OK);
     }
 
     /**

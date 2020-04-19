@@ -12,9 +12,9 @@ public class OperationDTO implements Serializable {
 
     private BeneficiaireDTO beneficiaire;
 
-    // private Set<OperLineConDTO> conducteurs = new HashSet<>();
+    private Set<AssocaidTOOperLineConDTO> conducteurs = new HashSet<>();
 
-   // private Set<OperLineVehDTO> vehicules = new HashSet<>();
+    private Set<AssociadToOperLineVehDTO> vehicules = new HashSet<>();
 
     protected TargetDTO target;
 
@@ -33,22 +33,22 @@ public class OperationDTO implements Serializable {
     public void setBeneficiaire(BeneficiaireDTO beneficiaire) {
         this.beneficiaire = beneficiaire;
     }
-/*
-    public Set<OperLineConDTO> getConducteurs() {
+
+    public Set<AssocaidTOOperLineConDTO> getConducteurs() {
         return conducteurs;
     }
 
-    public void setConducteurs(Set<OperLineConDTO> conducteurs) {
+    public void setConducteurs(Set<AssocaidTOOperLineConDTO> conducteurs) {
         this.conducteurs = conducteurs;
     }
 
-    public Set<OperLineVehDTO> getVehicules() {
+    public Set<AssociadToOperLineVehDTO> getVehicules() {
         return vehicules;
     }
 
-    public void setVehicules(Set<OperLineVehDTO> vehicules) {
+    public void setVehicules(Set<AssociadToOperLineVehDTO> vehicules) {
         this.vehicules = vehicules;
-    }*/
+    }
 
     public TargetDTO getTarget() {
         return target;
