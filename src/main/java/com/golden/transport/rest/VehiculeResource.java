@@ -27,7 +27,6 @@ import com.golden.transport.util.ResponseUtil;
  * REST controller for managing {@link Vehicule}.
  */
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 public class VehiculeResource {
 
@@ -91,13 +90,12 @@ public class VehiculeResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of vehicules in body.
      */
     @GetMapping("/vehicules")
-    public ResponseEntity<List<VehiculeDTO>> getAllVehicules(@RequestParam(defaultValue = "0")  Integer pageNo,
-                                                             @RequestParam(defaultValue = "10") Integer pageSize,
-                                                             @RequestParam(defaultValue = "id") String sortBy) {
+    public ResponseEntity<List<VehiculeDTO>> getAllVehicules(Pageable pageable) {
         log.debug("REST request to get a page of Vehicules");
-        List<VehiculeDTO> list = vehiculeService.findAll(pageNo, pageSize, sortBy);
-       // HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), list);
-        return new ResponseEntity<List<VehiculeDTO>>(list, new HttpHeaders(), HttpStatus.OK);
+        Page<VehiculeDTO> page = vehiculeService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        ResponseEntity<List<VehiculeDTO>> res = ResponseEntity.ok().headers(headers).body(page.getContent());
+        return res ;
     }
 
     /**

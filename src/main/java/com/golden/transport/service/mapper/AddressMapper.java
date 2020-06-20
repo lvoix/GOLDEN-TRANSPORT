@@ -11,14 +11,14 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses = {})
 public interface AddressMapper extends EntityMapper<AddressDTO, Address> {
 
-    @Mapping(source = "city", target = "city")
+ /*   @Mapping(source = "city", target = "city")
     @Mapping(source = "area", target = "area")
-    @Mapping(source = "country", target = "country")
+    @Mapping(source = "country", target = "country")*/
     AddressDTO toDto(Address address);
 
-    @Mapping(source = "city", target = "city")
+/*    @Mapping(source = "city", target = "city")
     @Mapping(source = "area", target = "area")
-    @Mapping(source = "country", target = "country")
+    @Mapping(source = "country", target = "country")*/
     Address toEntity(AddressDTO addressDTO);
 
     default Address fromId(Long id) {

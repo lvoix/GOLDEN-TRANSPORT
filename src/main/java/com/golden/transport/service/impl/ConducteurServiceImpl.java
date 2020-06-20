@@ -9,7 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,9 +57,10 @@ public class ConducteurServiceImpl implements ConducteurService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<ConducteurDTO> findAll(Pageable pageable) {
+    public Page<ConducteurDTO> findAll(int page, int size, String sortBy) {
         log.debug("Request to get all conducteurs");
-        return conducteurRepository.findAll(pageable)
+        Pageable paging = PageRequest.of(page, size, Sort.by(sortBy));
+        return conducteurRepository.findAll(paging)
             .map(conducteurMapper::toDto);
     }
 

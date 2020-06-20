@@ -12,7 +12,10 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {})
 public interface StationMapper extends EntityMapper<StationDTO, Station> {
 
+    StationDTO toDto(Station station);
 
+
+    Station toEntity(StationDTO stationDTO);
 
     default Station fromId(Long id) {
         if (id == null) {

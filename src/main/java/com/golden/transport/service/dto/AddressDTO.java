@@ -11,6 +11,9 @@ public class AddressDTO implements Serializable {
     private String zipCode;
     private String street1;
     private String street2;
+    private String nomClient;
+    private String typeStation;
+    private Integer ordere;
 
     public String getCity() {
         return city;
@@ -58,6 +61,30 @@ public class AddressDTO implements Serializable {
 
     public void setStreet2(String street2) {
         this.street2 = street2;
+    }
+
+    public String getNomClient() {
+        return nomClient;
+    }
+
+    public void setNomClient(String nomClient) {
+        this.nomClient = nomClient;
+    }
+
+    public String getTypeStation() {
+        return typeStation;
+    }
+
+    public void setTypeStation(String typeStation) {
+        this.typeStation = typeStation;
+    }
+
+    public Integer getOrdere() {
+        return ordere;
+    }
+
+    public void setOrdere(Integer ordere) {
+        this.ordere = ordere;
     }
 
     @Override

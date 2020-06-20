@@ -27,7 +27,7 @@ public interface ConducteurService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Page<ConducteurDTO> findAll(Pageable pageable);
+    Page<ConducteurDTO> findAll(int page, int size, String sortBy);
 
     /**
      * Get the "id" chauffeur.

@@ -14,14 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.golden.transport.service.ConducteurService;
@@ -95,13 +88,25 @@ public class ConducteurResource {
      *
      * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of chauffeurs in body.
+     @GetMapping("/conducteurs")
+     public ResponseEntity<List<ConducteurDTO>> getAllConducteurs(Pageable pageable) {
+     log.debug("REST request to get a page of conducteurs");
+     Page<ConducteurDTO> page = conducteurService.findAll(pageable);
+     HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+     return ResponseEntity.ok().headers(headers).body(page.getContent());
+     }
      */
     @GetMapping("/conducteurs")
-    public ResponseEntity<List<ConducteurDTO>> getAllConducteurs(Pageable pageable) {
+    public Page<ConducteurDTO> getAllConducteurs(@RequestParam(defaultValue = "0")  int page,
+                                                 @RequestParam(defaultValue = "10") int size,
+                                                 @RequestParam(defaultValue = "id") String sortBy) {
         log.debug("REST request to get a page of conducteurs");
-        Page<ConducteurDTO> page = conducteurService.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
+        Page<ConducteurDTO> resultPage = conducteurService.findAll(page, size, sortBy);
+        if (page > resultPage.getTotalPages()) {
+            log.debug("REST request to Exception");
+
+        }
+        return resultPage;
     }
 
     /**

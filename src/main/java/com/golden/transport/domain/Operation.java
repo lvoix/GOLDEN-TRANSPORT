@@ -7,6 +7,8 @@ import java.util.*;
 import com.golden.transport.domain.*;
 import com.golden.transport.enumeration.OperationStatus;
 import com.golden.transport.enumeration.OperationType;
+import com.golden.transport.util.StringPrefixedSequenceIdGenerator;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 
 /**
@@ -22,6 +24,13 @@ public class Operation implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+     @Column(name = "ndossier")
+     private String ndossier;
+
+/*    @Version
+    @Column(name = "version")
+    private int version;*/
+
     @Column(name = "TYPE",length = 255)
     @Enumerated(EnumType.STRING)
     private OperationType Operationtype;
@@ -36,6 +45,9 @@ public class Operation implements Serializable {
 
     @Column(name = "LIBELLE", length = 255)
     private String Libelle;
+
+    @Column(name = "MOTIF", length = 255)
+    private String motifClient;
 
     @Column(name = "OPERATION_STATUS", length = 255)
     private OperationStatus status;
@@ -53,6 +65,10 @@ public class Operation implements Serializable {
     @Column(name = "DATE_FIN")
     @Temporal(TemporalType.DATE)
     private Date DateFin;
+
+    @Column(name = "DATE_DEPART")
+    @Temporal(TemporalType.DATE)
+    private Date Datedepart;
 
     @Column(name = "TYPE_MARCHANDISES", length = 255)
     private String TypeMarchandises;
@@ -76,6 +92,9 @@ public class Operation implements Serializable {
     @OneToOne
     @JoinColumn(name="TARGETID", referencedColumnName="id")
     protected Target target;
+
+    @OneToMany(targetEntity = Station.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "operations", orphanRemoval = true)
+    private Set<Station> stations = new HashSet<>();
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -215,6 +234,38 @@ public class Operation implements Serializable {
 
     public void setVolumeMax(Integer volumeMax) {
         VolumeMax = volumeMax;
+    }
+
+    public String getMotifClient() {
+        return motifClient;
+    }
+
+    public void setMotifClient(String motifClient) {
+        this.motifClient = motifClient;
+    }
+
+    public Date getDatedepart() {
+        return Datedepart;
+    }
+
+    public void setDatedepart(Date datedepart) {
+        Datedepart = datedepart;
+    }
+
+    public Set<Station> getStations() {
+        return stations;
+    }
+
+    public void setStations(Set<Station> stations) {
+        this.stations = stations;
+    }
+
+    public String getNdossier() {
+        return ndossier;
+    }
+
+    public void setNdossier(String ndossier) {
+        this.ndossier = ndossier;
     }
 
     @Override

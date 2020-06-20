@@ -29,7 +29,7 @@ public interface VehiculeService {
      * @return the list of entities.
      */
      List<VehiculeDTO> findAll(Integer pageNo, Integer pageSize, String sortBy) ;
-
+     Page<VehiculeDTO> findAll(Pageable pageable);
     /**
      * Get the "id" vehicule.
      *

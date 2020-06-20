@@ -13,12 +13,17 @@ import org.mapstruct.*;
 public interface ConducteurMapper extends EntityMapper<ConducteurDTO, Conducteur> {
 
     @Mapping(source = "id", target = "id")
-    //@Mapping(source = "operations", target = "operations")
+    @Mapping(source = "entite", target = "entite")
+    @Mapping(source = "cni", target = "cni")
+
+        //@Mapping(source = "operations", target = "operations")
     ConducteurDTO toDto(Conducteur conducteur);
 
 
     @Mapping(source = "id", target = "id")
-    //@Mapping(source = "operations", target = "operations")
+    @Mapping(source = "cni", target = "cni")
+    @Mapping(source = "entite", target = "entite")
+        //@Mapping(source = "operations", target = "operations")
     Conducteur toEntity(ConducteurDTO conducteurDTO);
 
     default Conducteur fromId(Long id) {

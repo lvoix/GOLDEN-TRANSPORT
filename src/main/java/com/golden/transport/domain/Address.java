@@ -7,6 +7,7 @@ import java.io.Serializable;
 @Embeddable
 public class Address implements Serializable {
 
+
     @Column(name = "CITY", length = 255)
     private String city;
     @Column(name = "AREA", length = 255)
@@ -19,6 +20,15 @@ public class Address implements Serializable {
     private String street1;
     @Column(name = "STREET2", length = 255)
     private String street2;
+
+    @Column(name = "NOMCLIENT", length = 255)
+    private String nomClient;
+
+    @Column(name = "TYPESTATION", length = 255)
+    private String typeStation;
+
+    @Column(name = "ORDERE")
+    private Integer ordere;
 
     public String getCity() {
         return city;
@@ -66,6 +76,30 @@ public class Address implements Serializable {
 
     public void setStreet2(String street2) {
         this.street2 = street2;
+    }
+
+    public String getNomClient() {
+        return nomClient;
+    }
+
+    public void setNomClient(String nomClient) {
+        this.nomClient = nomClient;
+    }
+
+    public String getTypeStation() {
+        return typeStation;
+    }
+
+    public void setTypeStation(String typeStation) {
+        this.typeStation = typeStation;
+    }
+
+    public Integer getOrdere() {
+        return ordere;
+    }
+
+    public void setOrdere(Integer ordere) {
+        this.ordere = ordere;
     }
 
     @Override

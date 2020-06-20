@@ -15,11 +15,13 @@ import org.mapstruct.*;
 public interface BeneficiaireMapper extends EntityMapper<BeneficiaireDTO, Beneficiaire> {
 
     @Mapping(source = "id", target = "id")
+    @Mapping(source = "name", target = "name")
     @Mapping(source = "address", target = "address")
     BeneficiaireDTO toDto(Beneficiaire beneficiaire);
 
 
     @Mapping(source = "id", target = "id")
+    @Mapping(source = "name", target = "name")
     @Mapping(source = "address", target = "address")
     Beneficiaire toEntity(BeneficiaireDTO beneficiaireDTO);
 

@@ -48,7 +48,6 @@ public class VehiculeServiceImpl implements VehiculeService {
     public VehiculeDTO save(VehiculeDTO vehiculeDTO) {
         log.debug("Request to save Vehicule : {}", vehiculeDTO);
         Vehicule vehicule = vehiculeMapper.toEntity(vehiculeDTO);
-        vehicule.setUpdateDateTime(vehiculeDTO.getUpdateDateTime());
         vehicule.setMiseCirculation(vehiculeDTO.getMiseCirculation());
         vehicule.setDateMiseCirculation(vehiculeDTO.getDateMiseCirculation());
         vehicule.setDateCreation(new Date());
@@ -76,7 +75,13 @@ public class VehiculeServiceImpl implements VehiculeService {
             return new ArrayList<VehiculeDTO>();
         }
     }
-
+    @Override
+    @Transactional(readOnly = true)
+    public Page<VehiculeDTO> findAll(Pageable pageable) {
+        log.debug("Request to get all Vehicules");
+        return vehiculeRepository.findAll(pageable)
+                .map(vehiculeMapper::toDto);
+    }
     /**
      * Get one vehicule by id.
      *

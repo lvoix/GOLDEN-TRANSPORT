@@ -45,6 +45,15 @@ public class Conducteur implements Serializable {
     @Column(name = "MORE_REF", length = 255)
     private String ref;
 
+    @Column(name = "CNI", length = 255)
+    private String cni;
+
+    @Column(name = "CNSS", length = 255)
+    private String cnss;
+
+    @Column(name = "NPASSPORT", length = 255)
+    private String npasseport;
+
     @Column(name = "JOB_TITLE", length = 255)
     private String jobTitle;
 
@@ -162,6 +171,30 @@ public class Conducteur implements Serializable {
 
     public void setRef(String ref) {
         this.ref = ref;
+    }
+
+    public String getCni() {
+        return cni;
+    }
+
+    public void setCni(String cni) {
+        this.cni = cni;
+    }
+
+    public String getCnss() {
+        return cnss;
+    }
+
+    public void setCnss(String cnss) {
+        this.cnss = cnss;
+    }
+
+    public String getNpasseport() {
+        return npasseport;
+    }
+
+    public void setNpasseport(String npasseport) {
+        this.npasseport = npasseport;
     }
 
     public String getJobTitle() {

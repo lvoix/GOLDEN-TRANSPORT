@@ -1,6 +1,7 @@
 package com.golden.transport.service;
 
 import com.golden.transport.domain.Operation;
+import com.golden.transport.service.dto.OperationADDDTO;
 import com.golden.transport.service.dto.OperationDTO;
 
 import org.springframework.data.domain.Page;
@@ -19,7 +20,7 @@ public interface OperationService {
      * @param operationDTO the entity to save.
      * @return the persisted entity.
      */
-    OperationDTO save(OperationDTO operationDTO);
+    OperationDTO save(OperationADDDTO operationDTO);
 
     /**
      * Get all the operations.
