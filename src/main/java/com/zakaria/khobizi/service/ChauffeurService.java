@@ -26,7 +26,11 @@ public interface ChauffeurService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
+<<<<<<< HEAD:src/main/java/com/zakaria/khobizi/service/ChauffeurService.java
     Page<ChauffeurDTO> findAll(Pageable pageable);
+=======
+    Page<ConducteurDTO> findAll(int page, int size, String sortBy);
+>>>>>>> lvoix-2020:src/main/java/com/golden/transport/service/ConducteurService.java
 
     /**
      * Get the "id" chauffeur.

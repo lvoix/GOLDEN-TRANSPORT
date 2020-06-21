@@ -1,6 +1,12 @@
 package com.zakaria.khobizi.service;
 
+<<<<<<< HEAD:src/main/java/com/zakaria/khobizi/service/OperationService.java
 import com.zakaria.khobizi.service.dto.OperationDTO;
+=======
+import com.golden.transport.domain.Operation;
+import com.golden.transport.service.dto.OperationADDDTO;
+import com.golden.transport.service.dto.OperationDTO;
+>>>>>>> lvoix-2020:src/main/java/com/golden/transport/service/OperationService.java
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +24,7 @@ public interface OperationService {
      * @param operationDTO the entity to save.
      * @return the persisted entity.
      */
-    OperationDTO save(OperationDTO operationDTO);
+    OperationDTO save(OperationADDDTO operationDTO);
 
     /**
      * Get all the operations.

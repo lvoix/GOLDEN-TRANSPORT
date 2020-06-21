@@ -5,6 +5,7 @@ import com.zakaria.khobizi.service.dto.VehiculeDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -26,8 +27,8 @@ public interface VehiculeService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Page<VehiculeDTO> findAll(Pageable pageable);
-
+     List<VehiculeDTO> findAll(Integer pageNo, Integer pageSize, String sortBy) ;
+     Page<VehiculeDTO> findAll(Pageable pageable);
     /**
      * Get the "id" vehicule.
      *

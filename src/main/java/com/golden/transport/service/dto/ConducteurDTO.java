@@ -1,76 +1,51 @@
-<<<<<<< HEAD:src/main/java/com/zakaria/khobizi/service/dto/BeneficiaireDTO.java
-package com.zakaria.khobizi.service.dto;
-=======
 package com.golden.transport.service.dto;
 
-import com.golden.transport.domain.Beneficiaire;
-import com.golden.transport.enumeration.*;
->>>>>>> lvoix-2020:src/main/java/com/golden/transport/service/dto/BeneficiaireDTO.java
+import com.golden.transport.domain.Address;
+import com.golden.transport.enumeration.ConducteurType;
+import com.golden.transport.enumeration.CustomerStatus;
+import com.golden.transport.enumeration.ScoreEnum;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
- * A DTO for the {@link com.zakaria.khobizi.domain.Beneficiaire} entity.
+ * A DTO for the {@link Conducteur} entity.
  */
-public class BeneficiaireDTO implements Serializable {
+public class ConducteurDTO implements Serializable {
     
     private Long id;
-<<<<<<< HEAD:src/main/java/com/zakaria/khobizi/service/dto/BeneficiaireDTO.java
-=======
-    private String name;
-
-    private CustomerType customerType;
-
+    private ConducteurType conducteurType;
     private Date dateCreation;
-
+    private String name;
     private String firstName;
-
     private String lastName;
-
     private String ref;
-
-    private String webSite;
-
+    private String cni;
+    private String cnss;
+    private String npasseport;
     private String jobTitle;
-
     private String email;
-
     private String phoneNumber;
-
     private CustomerStatus status;
-
-    private BeneficiaireType type;
-
-    private Industry industry;
-
     private Float turnover;
-
     private ScoreEnum score;
-
     private String telephone;
-
     private String fax;
-
     private Boolean permited;
-
     private String codeNAF;
-
-    private Integer employees;
-
-    private String twitter;
-
+    private Integer enfants;
+    private Integer experience;
+    private String situation;
     private String facebook;
-
     private String linkedin;
-
     private String businessSector;
+    private Address address;
+    private EntiteDTO entite;
+    private Set<OperationLineDTO> operations = new HashSet<>();
 
-    private AddressDTO address;
->>>>>>> lvoix-2020:src/main/java/com/golden/transport/service/dto/BeneficiaireDTO.java
-
-    
     public Long getId() {
         return id;
     }
@@ -79,14 +54,20 @@ public class BeneficiaireDTO implements Serializable {
         this.id = id;
     }
 
-<<<<<<< HEAD:src/main/java/com/zakaria/khobizi/service/dto/BeneficiaireDTO.java
-=======
-    public AddressDTO getAddress() {
-        return address;
+    public ConducteurType getConducteurType() {
+        return conducteurType;
     }
 
-    public void setAddress(AddressDTO address) {
-        this.address = address;
+    public void setConducteurType(ConducteurType conducteurType) {
+        this.conducteurType = conducteurType;
+    }
+
+    public Date getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
     }
 
     public String getName() {
@@ -121,12 +102,28 @@ public class BeneficiaireDTO implements Serializable {
         this.ref = ref;
     }
 
-    public String getWebSite() {
-        return webSite;
+    public String getCni() {
+        return cni;
     }
 
-    public void setWebSite(String webSite) {
-        this.webSite = webSite;
+    public void setCni(String cni) {
+        this.cni = cni;
+    }
+
+    public String getCnss() {
+        return cnss;
+    }
+
+    public void setCnss(String cnss) {
+        this.cnss = cnss;
+    }
+
+    public String getNpasseport() {
+        return npasseport;
+    }
+
+    public void setNpasseport(String npasseport) {
+        this.npasseport = npasseport;
     }
 
     public String getJobTitle() {
@@ -159,22 +156,6 @@ public class BeneficiaireDTO implements Serializable {
 
     public void setStatus(CustomerStatus status) {
         this.status = status;
-    }
-
-    public BeneficiaireType getType() {
-        return type;
-    }
-
-    public void setType(BeneficiaireType type) {
-        this.type = type;
-    }
-
-    public Industry getIndustry() {
-        return industry;
-    }
-
-    public void setIndustry(Industry industry) {
-        this.industry = industry;
     }
 
     public Float getTurnover() {
@@ -225,20 +206,28 @@ public class BeneficiaireDTO implements Serializable {
         this.codeNAF = codeNAF;
     }
 
-    public Integer getEmployees() {
-        return employees;
+    public Integer getEnfants() {
+        return enfants;
     }
 
-    public void setEmployees(Integer employees) {
-        this.employees = employees;
+    public void setEnfants(Integer enfants) {
+        this.enfants = enfants;
     }
 
-    public String getTwitter() {
-        return twitter;
+    public Integer getExperience() {
+        return experience;
     }
 
-    public void setTwitter(String twitter) {
-        this.twitter = twitter;
+    public void setExperience(Integer experience) {
+        this.experience = experience;
+    }
+
+    public String getSituation() {
+        return situation;
+    }
+
+    public void setSituation(String situation) {
+        this.situation = situation;
     }
 
     public String getFacebook() {
@@ -265,48 +254,27 @@ public class BeneficiaireDTO implements Serializable {
         this.businessSector = businessSector;
     }
 
-    public CustomerType getCustomerType() {
-        return customerType;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setCustomerType(CustomerType customerType) {
-        this.customerType = customerType;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
-    public Date getDateCreation() {
-        return dateCreation;
+    public EntiteDTO getEntite() {
+        return entite;
     }
 
-    public void setDateCreation(Date dateCreation) {
-        this.dateCreation = dateCreation;
+    public void setEntite(EntiteDTO entite) {
+        this.entite = entite;
     }
 
->>>>>>> lvoix-2020:src/main/java/com/golden/transport/service/dto/BeneficiaireDTO.java
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        BeneficiaireDTO beneficiaireDTO = (BeneficiaireDTO) o;
-        if (beneficiaireDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), beneficiaireDTO.getId());
+    public Set<OperationLineDTO> getOperations() {
+        return operations;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
-
-    @Override
-    public String toString() {
-        return "BeneficiaireDTO{" +
-            "id=" + getId() +
-            "}";
+    public void setOperations(Set<OperationLineDTO> operations) {
+        this.operations = operations;
     }
 }

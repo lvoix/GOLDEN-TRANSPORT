@@ -4,6 +4,13 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+<<<<<<< HEAD:src/main/java/com/zakaria/khobizi/rest/OperationResource.java
+=======
+import com.golden.transport.domain.Operation;
+import com.golden.transport.service.dto.OperationADDDTO;
+import com.golden.transport.service.dto.OperationDTO;
+import com.golden.transport.service.dto.OperationUpdateDTO;
+>>>>>>> lvoix-2020:src/main/java/com/golden/transport/rest/OperationResource.java
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.zakaria.khobizi.service.OperationService;
@@ -57,9 +57,9 @@ public class OperationResource {
      * @throws Exception if the Location URI syntax is incorrect.
      */
     @PostMapping("/operations")
-    public ResponseEntity<OperationDTO> createOperation(@RequestBody OperationDTO operationDTO) throws Exception {
+    public ResponseEntity<OperationDTO> createOperation(@RequestBody OperationADDDTO operationDTO) throws Exception {
         log.debug("REST request to save Operation : {}", operationDTO);
-        if (operationDTO.getId() != null) {
+       if (operationDTO.getId() != null) {
             throw new Exception("A new operation cannot already have an ID"+ENTITY_NAME+ "idexists");
         }
         OperationDTO result = operationService.save(operationDTO);
@@ -78,12 +78,13 @@ public class OperationResource {
      * @throws Exception if the Location URI syntax is incorrect.
      */
     @PutMapping("/operations")
-    public ResponseEntity<OperationDTO> updateOperation(@RequestBody OperationDTO operationDTO) throws Exception {
+    public ResponseEntity<OperationDTO> updateOperation(@RequestBody OperationADDDTO operationDTO) throws Exception {
         log.debug("REST request to update Operation : {}", operationDTO);
         if (operationDTO.getId() == null) {
             throw new Exception("Invalid id"+ENTITY_NAME+ "idnull");
         }
         OperationDTO result = operationService.save(operationDTO);
+
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, operationDTO.getId().toString()))
             .body(result);
@@ -100,7 +101,8 @@ public class OperationResource {
         log.debug("REST request to get a page of Operations");
         Page<OperationDTO> page = operationService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
+        ResponseEntity<List<OperationDTO>> res = ResponseEntity.ok().headers(headers).body(page.getContent());
+        return res ;
     }
 
     /**

@@ -1,76 +1,119 @@
-<<<<<<< HEAD:src/main/java/com/zakaria/khobizi/service/dto/BeneficiaireDTO.java
-package com.zakaria.khobizi.service.dto;
-=======
-package com.golden.transport.service.dto;
+package com.golden.transport.domain;
 
-import com.golden.transport.domain.Beneficiaire;
 import com.golden.transport.enumeration.*;
->>>>>>> lvoix-2020:src/main/java/com/golden/transport/service/dto/BeneficiaireDTO.java
+import org.springframework.data.annotation.CreatedDate;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * A DTO for the {@link com.zakaria.khobizi.domain.Beneficiaire} entity.
+ * A Beneficiaire.
  */
-public class BeneficiaireDTO implements Serializable {
-    
-    private Long id;
-<<<<<<< HEAD:src/main/java/com/zakaria/khobizi/service/dto/BeneficiaireDTO.java
-=======
-    private String name;
+@Entity
+@Table(name = "beneficiaire") 
+public class Beneficiaire implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "TYPE",length = 255)
+    @Enumerated(EnumType.STRING)
     private CustomerType customerType;
 
+    @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "DATE_CREATION", updatable = false)
     private Date dateCreation;
 
+    @Column(name = "NAME", length = 255)
+    private String name;
+
+    @Column(name = "FIRST_NAME", length = 255)
     private String firstName;
 
+    @Column(name = "LAST_NAME", length = 255)
     private String lastName;
 
+    @Column(name = "MORE_REF", length = 255)
     private String ref;
 
+    @Column(name = "WEB_SITE", length = 255)
     private String webSite;
 
+    @Column(name = "JOB_TITLE", length = 255)
     private String jobTitle;
 
+    @Column(name = "BEN_EMAIL", length = 255)
     private String email;
 
+    @Column(name = "PHONE_NUMBER", length = 255)
     private String phoneNumber;
 
+    @Column(name = "STATUS", length = 255)
     private CustomerStatus status;
 
+    @Column(name = "BENEFICIAIRE_TYPE")
+    @Enumerated(EnumType.STRING)
     private BeneficiaireType type;
 
+    @Column(name = "INDUSTRY")
+    @Enumerated(EnumType.STRING)
     private Industry industry;
 
+    @Column(name = "TURNOVER", length = 255)
     private Float turnover;
 
+    @Column(name = "SCORE_ENUM")
+    @Enumerated(EnumType.STRING)
     private ScoreEnum score;
 
+    @Column(name = "TELEPHONE", length = 255)
     private String telephone;
 
+    @Column(name = "FAX", length = 255)
     private String fax;
 
+    @Column(name = "PERMITED", length = 255)
     private Boolean permited;
 
+    @Column(name = "NAF", length = 255)
     private String codeNAF;
 
+    @Column(name = "EMPLOYEES", length = 255)
     private Integer employees;
 
+    @Column(name = "TWITTER", length = 255)
     private String twitter;
 
+    @Column(name = "FACEBOOK", length = 255)
     private String facebook;
 
+    @Column(name = "LINKEDIN", length = 255)
     private String linkedin;
 
+    @Column(name = "BUSINESS_SECTOR", length = 255)
     private String businessSector;
 
-    private AddressDTO address;
->>>>>>> lvoix-2020:src/main/java/com/golden/transport/service/dto/BeneficiaireDTO.java
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "BENEFICIAIRE_PARENT_ID")
+    Beneficiaire parent;
 
-    
+    @Embedded
+    private Address address;
+
+    @OneToMany(targetEntity = Operation.class , mappedBy="beneficiaire", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    protected Set<Operation> operations = new HashSet<>();
+
+    @OneToMany(targetEntity = Contact.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "beneficiaire", orphanRemoval = true)
+    private Set<Contact> contacts = new HashSet<>();
+
+
     public Long getId() {
         return id;
     }
@@ -79,14 +122,25 @@ public class BeneficiaireDTO implements Serializable {
         this.id = id;
     }
 
-<<<<<<< HEAD:src/main/java/com/zakaria/khobizi/service/dto/BeneficiaireDTO.java
-=======
-    public AddressDTO getAddress() {
-        return address;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
-    public void setAddress(AddressDTO address) {
-        this.address = address;
+    public CustomerType getCustomerType() {
+        return customerType;
+    }
+
+    public void setCustomerType(CustomerType customerType) {
+        this.customerType = customerType;
+    }
+
+    public Date getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
     }
 
     public String getName() {
@@ -265,47 +319,57 @@ public class BeneficiaireDTO implements Serializable {
         this.businessSector = businessSector;
     }
 
-    public CustomerType getCustomerType() {
-        return customerType;
+    public Beneficiaire getParent() {
+        return parent;
     }
 
-    public void setCustomerType(CustomerType customerType) {
-        this.customerType = customerType;
+    public void setParent(Beneficiaire parent) {
+        this.parent = parent;
     }
 
-    public Date getDateCreation() {
-        return dateCreation;
+    public Set<Operation> getOperations() {
+        return operations;
     }
 
-    public void setDateCreation(Date dateCreation) {
-        this.dateCreation = dateCreation;
+    public void setOperations(Set<Operation> operations) {
+        this.operations = operations;
     }
 
->>>>>>> lvoix-2020:src/main/java/com/golden/transport/service/dto/BeneficiaireDTO.java
+    public Set<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(Set<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Beneficiaire)) {
             return false;
         }
-
-        BeneficiaireDTO beneficiaireDTO = (BeneficiaireDTO) o;
-        if (beneficiaireDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), beneficiaireDTO.getId());
+        return id != null && id.equals(((Beneficiaire) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override
     public String toString() {
-        return "BeneficiaireDTO{" +
+        return "Beneficiaire{" +
             "id=" + getId() +
             "}";
     }

@@ -1,79 +1,39 @@
-package com.zakaria.khobizi.domain;
+package com.golden.transport.service.dto;
+
+import com.golden.transport.domain.Address;
+import com.golden.transport.domain.Station;
 
 import java.io.Serializable;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import java.util.Objects;
 
 /**
- * A Station.
+ * A DTO for the {@link Station} entity.
  */
-@Entity
-@Table(name = "station")
-public class Station implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class StationDTO implements Serializable {
+    
     private Long id;
-
-    @Column(name = "CODE", length = 255)
     private String code;
-
-    @Column(name = "REF", length = 255)
     private String ref;
-
-    @Column(name = "NAME", length = 255)
     private String name;
-
-    @Column(name = "COORDX", length = 255)
     private String coordX;
-
-    @Column(name = "COORDY", length = 255)
     private String coordY;
-
-    @Column(name = "CITY", length = 255)
-    private String city;
-    @Column(name = "AREA", length = 255)
-    private String area;
-    @Column(name = "COUNTRY", length = 255)
-    private String country;
-    @Column(name = "ZIPCODE", length = 255)
-    private String zipCode;
-    @Column(name = "STREET1", length = 255)
-    private String street1;
-    @Column(name = "STREET2", length = 255)
-    private String street2;
-
-    @Column(name = "NOMCLIENT", length = 255)
-    private String nomClient;
-
-    @Column(name = "TYPE_STATION", length = 255)
     private String typeStation;
-
-    @Column(name = "ORDERE")
+    private String city;
+    private String area;
+    private String country;
+    private String zipCode;
+    private String street1;
+    private String street2;
+    private String nomClient;
     private Integer ordere;
-
-    @ManyToOne
-    @JoinColumn(name = "OPERATION_ID")
-    private Operation operations ;
-
-
-    public Long getId() {
-        return id;
-    }
 
     public void setId(Long id) {
         this.id = id;
     }
-    
+
+    public Long getId() {
+        return id;
+    }
 
     public String getCode() {
         return code;
@@ -113,14 +73,6 @@ public class Station implements Serializable {
 
     public void setCoordY(String coordY) {
         this.coordY = coordY;
-    }
-
-    public Operation getOperations() {
-        return operations;
-    }
-
-    public void setOperations(Operation operations) {
-        this.operations = operations;
     }
 
     public String getTypeStation() {
@@ -193,28 +145,5 @@ public class Station implements Serializable {
 
     public void setOrdere(Integer ordere) {
         this.ordere = ordere;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Station)) {
-            return false;
-        }
-        return id != null && id.equals(((Station) o).id);
-    }
-
-    @Override
-    public int hashCode() {
-        return 31;
-    }
-
-    @Override
-    public String toString() {
-        return "Station{" +
-            "id=" + getId() +
-            "}";
     }
 }
