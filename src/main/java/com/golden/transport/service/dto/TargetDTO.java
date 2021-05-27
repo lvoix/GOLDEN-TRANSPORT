@@ -5,9 +5,7 @@ import com.golden.transport.domain.Target;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * A DTO for the {@link Traget} entity.
- */
+
 public class TargetDTO implements Serializable {
     
     private Long id;

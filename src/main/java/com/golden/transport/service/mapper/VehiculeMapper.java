@@ -6,16 +6,14 @@ import com.golden.transport.service.dto.VehiculeDTO;
 
 import org.mapstruct.*;
 
-/**
- * Mapper for the entity {@link Vehicule} and its DTO {@link VehiculeDTO}.
- */
+
 @Mapper(componentModel = "spring", uses = {OperationMapper.class, EntiteMapper.class})
 public interface VehiculeMapper extends EntityMapper<VehiculeDTO, Vehicule> {
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "matricule", target = "matricule")
     @Mapping(source = "email", target = "email")
-    @Mapping(source = "entites", target = "entites")
+    @Mapping(source = "beneficiaires", target = "beneficiaires")
     @Mapping(source = "updateDateTime", target = "updateDateTime")
     @Mapping(source = "miseCirculation", target = "miseCirculation")
     @Mapping(source = "dateMiseCirculation", target = "dateMiseCirculation")
@@ -30,7 +28,7 @@ public interface VehiculeMapper extends EntityMapper<VehiculeDTO, Vehicule> {
     @Mapping(source = "updateDateTime", target = "updateDateTime")
     @Mapping(source = "miseCirculation", target = "miseCirculation")
     @Mapping(source = "dateMiseCirculation", target = "dateMiseCirculation")
-    @Mapping(source = "entites", target = "entites")
+    @Mapping(source = "beneficiaires", target = "beneficiaires")
         //@Mapping(source = "lineoperations", target = "lineoperations")
     Vehicule toEntity(VehiculeDTO vehiculeDTO);
 

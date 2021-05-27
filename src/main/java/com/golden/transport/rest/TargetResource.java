@@ -30,7 +30,7 @@ import com.golden.transport.util.PaginationUtil;
 import com.golden.transport.util.ResponseUtil;
 
 /**
- * REST controller for managing {@link target}.
+ * REST controller for managing
  */
 @RestController
 @RequestMapping("/api")

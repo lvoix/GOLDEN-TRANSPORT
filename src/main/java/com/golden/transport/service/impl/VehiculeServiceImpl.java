@@ -20,9 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Service Implementation for managing {@link Vehicule}.
- */
+
 @Service
 @Transactional
 public class VehiculeServiceImpl implements VehiculeService {
@@ -41,7 +39,6 @@ public class VehiculeServiceImpl implements VehiculeService {
     /**
      * Save a vehicule.
      *
-     * @param vehiculeDTO the entity to save.
      * @return the persisted entity.
      */
     @Override

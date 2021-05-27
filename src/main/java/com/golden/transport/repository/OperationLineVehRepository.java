@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 /**
  * Spring Data  repository for the Operation Line Vehicules entity.
  */
-@SuppressWarnings("unused")
+
 @Repository
 public interface OperationLineVehRepository extends JpaRepository<OperationLineVehicules, Long> {
 }

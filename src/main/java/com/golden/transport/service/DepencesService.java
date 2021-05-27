@@ -1,30 +1,28 @@
 package com.golden.transport.service;
 
-import com.golden.transport.domain.Depences;
 import com.golden.transport.service.dto.DepencesDTO;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
-/**
- * Service Interface for managing {@link Depences}.
- */
 public interface DepencesService {
 
     /**
      * Save a depences.
      *
-     * @param depencesDTO the entity to save.
      * @return the persisted entity.
      */
     DepencesDTO save(DepencesDTO depencesDTO);
 
+
+     Boolean saveAll(List<DepencesDTO> depences);
+
     /**
      * Get all the depences.
      *
-     * @param pageable the pagination information.
      * @return the list of entities.
      */
     Page<DepencesDTO> findAll(Pageable pageable);

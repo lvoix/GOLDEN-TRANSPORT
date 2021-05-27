@@ -1,11 +1,6 @@
 package com.golden.transport.domain;
 
-import com.golden.transport.domain.Beneficiaire;
-import com.golden.transport.domain.Conducteur;
-import com.golden.transport.enumeration.CustomerType;
-import com.golden.transport.enumeration.EntiteStatus;
-import com.golden.transport.enumeration.Industry;
-import com.golden.transport.enumeration.ScoreEnum;
+import com.golden.transport.enumeration.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -15,20 +10,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * A Societe.
+ * A Client.
  */
 @Entity
-@Table(name = "entite")
-public class Entite implements Serializable {
+@Table(name = "Client")
+public class Client implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "GERANT", length = 255)
-    private String gerant;
 
     @Column(name = "TYPE",length = 255)
     @Enumerated(EnumType.STRING)
@@ -39,29 +31,14 @@ public class Entite implements Serializable {
     @Column(name = "DATE_CREATION", updatable = false)
     private Date dateCreation;
 
-    @Column(name = "DATE_CREATION_ENTITE", updatable = false)
-    private Date dateCreationEntite;
-
     @Column(name = "NAME", length = 255)
     private String name;
 
-    @Column(name = "RC", length = 255)
-    private String rc;
+    @Column(name = "FIRST_NAME", length = 255)
+    private String firstName;
 
-    @Column(name = "Patente", length = 255)
-    private String patente;
-
-    @Column(name = "CNSS", length = 255)
-    private String cnss;
-
-    @Column(name = "I_FISCALE", length = 255)
-    private String tp;
-
-    @Column(name = "ICE", length = 255)
-    private String ICE;
-
-    @Column(name = "ABREVIATION", length = 255)
-    private String abr;
+    @Column(name = "LAST_NAME", length = 255)
+    private String lastName;
 
     @Column(name = "MORE_REF", length = 255)
     private String ref;
@@ -72,14 +49,18 @@ public class Entite implements Serializable {
     @Column(name = "JOB_TITLE", length = 255)
     private String jobTitle;
 
-    @Column(name = "ENTITE_EMAIL", length = 255)
+    @Column(name = "BEN_EMAIL", length = 255)
     private String email;
 
     @Column(name = "PHONE_NUMBER", length = 255)
     private String phoneNumber;
 
     @Column(name = "STATUS", length = 255)
-    private EntiteStatus status;
+    private CustomerStatus status;
+
+    @Column(name = "CLIENT_TYPE")
+    @Enumerated(EnumType.STRING)
+    private ClientType type;
 
     @Column(name = "INDUSTRY")
     @Enumerated(EnumType.STRING)
@@ -101,9 +82,6 @@ public class Entite implements Serializable {
     @Column(name = "PERMITED", length = 255)
     private Boolean permited;
 
-    @Column(name = "ACCEPTTERMS", length = 255)
-    private Boolean acceptTerms;
-
     @Column(name = "NAF", length = 255)
     private String codeNAF;
 
@@ -122,14 +100,29 @@ public class Entite implements Serializable {
     @Column(name = "BUSINESS_SECTOR", length = 255)
     private String businessSector;
 
+/*    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CLIENT_PARENT_ID")
+    Client parent;*/
+
+
+
+    @ManyToOne
+    @JoinColumn(name="users")
+    private UsersG user;
+
+    private Boolean active;
+
     @Embedded
     private Address address;
 
-    @OneToMany(mappedBy = "entite", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private Set<Conducteur> conducteurs = new HashSet<>();
+    @OneToMany(targetEntity = Operation.class , mappedBy="client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    protected Set<Operation> operations = new HashSet<>();
 
-    @OneToMany(mappedBy = "entites", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private Set<Vehicule> vehicules = new HashSet<>();
+    @OneToMany(targetEntity = Contact.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "client", orphanRemoval = true)
+    private Set<Contact> contacts = new HashSet<>();
+
+   @OneToMany(targetEntity = BillingAccount.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "client", orphanRemoval = true)
+    private Set<BillingAccount> billingaccount = new HashSet<>();
 
 
     public Long getId() {
@@ -140,16 +133,9 @@ public class Entite implements Serializable {
         this.id = id;
     }
 
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
-    }
-
-    public String getGerant() {
-        return gerant;
-    }
-
-    public void setGerant(String gerant) {
-        this.gerant = gerant;
     }
 
     public CustomerType getCustomerType() {
@@ -168,14 +154,6 @@ public class Entite implements Serializable {
         this.dateCreation = dateCreation;
     }
 
-    public Date getDateCreationEntite() {
-        return dateCreationEntite;
-    }
-
-    public void setDateCreationEntite(Date dateCreationEntite) {
-        this.dateCreationEntite = dateCreationEntite;
-    }
-
     public String getName() {
         return name;
     }
@@ -184,52 +162,20 @@ public class Entite implements Serializable {
         this.name = name;
     }
 
-    public String getRc() {
-        return rc;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setRc(String rc) {
-        this.rc = rc;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getPatente() {
-        return patente;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setPatente(String patente) {
-        this.patente = patente;
-    }
-
-    public String getCnss() {
-        return cnss;
-    }
-
-    public void setCnss(String cnss) {
-        this.cnss = cnss;
-    }
-
-    public String getTp() {
-        return tp;
-    }
-
-    public void setTp(String tp) {
-        this.tp = tp;
-    }
-
-    public String getICE() {
-        return ICE;
-    }
-
-    public void setICE(String ICE) {
-        this.ICE = ICE;
-    }
-
-    public String getAbr() {
-        return abr;
-    }
-
-    public void setAbr(String abr) {
-        this.abr = abr;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getRef() {
@@ -272,12 +218,20 @@ public class Entite implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public EntiteStatus getStatus() {
+    public CustomerStatus getStatus() {
         return status;
     }
 
-    public void setStatus(EntiteStatus status) {
+    public void setStatus(CustomerStatus status) {
         this.status = status;
+    }
+
+    public ClientType getType() {
+        return type;
+    }
+
+    public void setType(ClientType type) {
+        this.type = type;
     }
 
     public Industry getIndustry() {
@@ -376,20 +330,28 @@ public class Entite implements Serializable {
         this.businessSector = businessSector;
     }
 
-    public Set<Conducteur> getConducteurs() {
-        return conducteurs;
+/*    public Client getParent() {
+        return parent;
     }
 
-    public void setConducteurs(Set<Conducteur> conducteurs) {
-        this.conducteurs = conducteurs;
+    public void setParent(Client parent) {
+        this.parent = parent;
+    }*/
+
+    public Set<Operation> getOperations() {
+        return operations;
     }
 
-    public Set<Vehicule> getVehicules() {
-        return vehicules;
+    public void setOperations(Set<Operation> operations) {
+        this.operations = operations;
     }
 
-    public void setVehicules(Set<Vehicule> vehicules) {
-        this.vehicules = vehicules;
+    public Set<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(Set<Contact> contacts) {
+        this.contacts = contacts;
     }
 
     public Address getAddress() {
@@ -400,12 +362,29 @@ public class Entite implements Serializable {
         this.address = address;
     }
 
-    public Boolean getAcceptTerms() {
-        return acceptTerms;
+    public Set<BillingAccount> getBillingaccount() {
+        return billingaccount;
     }
 
-    public void setAcceptTerms(Boolean acceptTerms) {
-        this.acceptTerms = acceptTerms;
+    public void setBillingaccount(Set<BillingAccount> billingaccount) {
+        this.billingaccount = billingaccount;
+    }
+
+
+    public UsersG getUser() {
+        return user;
+    }
+
+    public void setUser(UsersG user) {
+        this.user = user;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     @Override
@@ -413,10 +392,10 @@ public class Entite implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Entite)) {
+        if (!(o instanceof Client)) {
             return false;
         }
-        return id != null && id.equals(((Entite) o).id);
+        return id != null && id.equals(((Client) o).id);
     }
 
     @Override
@@ -426,7 +405,7 @@ public class Entite implements Serializable {
 
     @Override
     public String toString() {
-        return "Entite{" +
+        return "Client{" +
             "id=" + getId() +
             "}";
     }

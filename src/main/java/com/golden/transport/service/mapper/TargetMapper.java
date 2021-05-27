@@ -6,9 +6,7 @@ import com.golden.transport.service.dto.TargetDTO;
 
 import org.mapstruct.*;
 
-/**
- * Mapper for the entity {@link Traget} and its DTO {@link TargetDTO}.
- */
+
 @Mapper(componentModel = "spring", uses = {StationMapper.class, DepencesMapper.class})
 public interface TargetMapper extends EntityMapper<TargetDTO, Target> {
 

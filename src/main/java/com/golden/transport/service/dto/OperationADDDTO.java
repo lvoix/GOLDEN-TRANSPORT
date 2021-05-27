@@ -1,20 +1,14 @@
 package com.golden.transport.service.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.golden.transport.domain.Address;
-import com.golden.transport.domain.Beneficiaire;
-import com.golden.transport.domain.Conducteur;
-import com.golden.transport.domain.Vehicule;
+import com.golden.transport.domain.*;
 import com.golden.transport.enumeration.OperationStatus;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.*;
 
-/**
- * A DTO for the {@link Operation} entity.
- */
+
 public class OperationADDDTO implements Serializable {
 
     private Long id;
@@ -49,7 +43,10 @@ public class OperationADDDTO implements Serializable {
     private String state;
     private String zip;
 
-    private Beneficiaire beneficiaire ;
+    private Client client;
+
+    private Beneficiaire beneficiaire;
+
 
     private List<StationDTO> adressesLoad = new ArrayList<StationDTO>();
     private List<StationDTO> adressesLivraison = new ArrayList<StationDTO>();
@@ -61,6 +58,10 @@ public class OperationADDDTO implements Serializable {
     private BigDecimal dotationEuro;
 
     private String motifClient;
+
+    private List<DepencesDTO> depencesall = new ArrayList<DepencesDTO>();
+
+    private Set<InvoicesDTO> invoices = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -182,12 +183,12 @@ public class OperationADDDTO implements Serializable {
         this.zip = zip;
     }
 
-    public Beneficiaire getBeneficiaire() {
-        return beneficiaire;
+    public Client getClient() {
+        return client;
     }
 
-    public void setBeneficiaire(Beneficiaire beneficiaire) {
-        this.beneficiaire = beneficiaire;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
 
@@ -285,5 +286,29 @@ public class OperationADDDTO implements Serializable {
 
     public void setLineC2(OperLineConupdateDTO lineC2) {
         this.lineC2 = lineC2;
+    }
+
+    public List<DepencesDTO> getDepencesall() {
+        return depencesall;
+    }
+
+    public void setDepencesall(List<DepencesDTO> depencesall) {
+        this.depencesall = depencesall;
+    }
+
+    public Set<InvoicesDTO> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(Set<InvoicesDTO> invoices) {
+        this.invoices = invoices;
+    }
+
+    public Beneficiaire getBeneficiaire() {
+        return beneficiaire;
+    }
+
+    public void setBeneficiaire(Beneficiaire beneficiaire) {
+        this.beneficiaire = beneficiaire;
     }
 }

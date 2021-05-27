@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 /**
  * Spring Data  repository for the Vehicule entity.
  */
-@SuppressWarnings("unused")
-@EnableJpaAuditing
+
+//@EnableJpaAuditing
 @Repository
 public interface VehiculeRepository extends JpaRepository<Vehicule, Long> , JpaSpecificationExecutor{
 }

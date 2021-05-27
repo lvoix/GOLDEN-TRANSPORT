@@ -1,16 +1,12 @@
 package com.golden.transport.service.dto;
 
-import com.golden.transport.domain.*;
 import com.golden.transport.enumeration.OperationStatus;
 import com.golden.transport.enumeration.OperationType;
 
-import javax.persistence.Enumerated;
 import java.io.Serializable;
 import java.util.*;
 
-/**
- * A DTO for the {@link Operation} entity.
- */
+
 public class OperationDTO implements Serializable {
 
     private Long id;
@@ -29,13 +25,15 @@ public class OperationDTO implements Serializable {
     private String TypeMarchandises;
     private Integer PoidsMax;
     private Integer VolumeMax;
+    private ClientDTO client;
     private BeneficiaireDTO beneficiaire;
     protected TargetDTO target;
-
+    private Boolean facturer;
     private Set<StationDTO> stations = new HashSet<>();
     private Set<AssocaidTOOperLineConDTO> conducteurs = new HashSet<>();
     private Set<AssociadToOperLineVehDTO> vehicules = new HashSet<>();
-
+    private Set<DepencesDTO> depences = new HashSet<>();
+    private Set<InvoicesDTO> invoices = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -165,12 +163,12 @@ public class OperationDTO implements Serializable {
         VolumeMax = volumeMax;
     }
 
-    public BeneficiaireDTO getBeneficiaire() {
-        return beneficiaire;
+    public ClientDTO getClient() {
+        return client;
     }
 
-    public void setBeneficiaire(BeneficiaireDTO beneficiaire) {
-        this.beneficiaire = beneficiaire;
+    public void setClient(ClientDTO client) {
+        this.client = client;
     }
 
     public TargetDTO getTarget() {
@@ -203,5 +201,66 @@ public class OperationDTO implements Serializable {
 
     public void setVehicules(Set<AssociadToOperLineVehDTO> vehicules) {
         this.vehicules = vehicules;
+    }
+
+    public Boolean getFacturer() {
+        return facturer;
+    }
+
+    public void setFacturer(Boolean facturer) {
+        this.facturer = facturer;
+    }
+
+    public Set<DepencesDTO> getDepences() {
+        return depences;
+    }
+
+    public void setDepences(Set<DepencesDTO> depences) {
+        this.depences = depences;
+    }
+
+    public Set<InvoicesDTO> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(Set<InvoicesDTO> invoices) {
+        this.invoices = invoices;
+    }
+
+    public BeneficiaireDTO getBeneficiaire() {
+        return beneficiaire;
+    }
+
+    public void setBeneficiaire(BeneficiaireDTO beneficiaire) {
+        this.beneficiaire = beneficiaire;
+    }
+
+    @Override
+    public String toString() {
+        return "OperationDTO{" +
+                "id=" + id +
+                ", ndossier='" + ndossier + '\'' +
+                ", Operationtype=" + Operationtype +
+                ", refChargement='" + refChargement + '\'' +
+                ", dateCreation=" + dateCreation +
+                ", Libelle='" + Libelle + '\'' +
+                ", motifClient='" + motifClient + '\'' +
+                ", status=" + status +
+                ", DotationEuro=" + DotationEuro +
+                ", DotationDH=" + DotationDH +
+                ", DateUpadte=" + DateUpadte +
+                ", DateFin=" + DateFin +
+                ", Datedepart=" + Datedepart +
+                ", TypeMarchandises='" + TypeMarchandises + '\'' +
+                ", PoidsMax=" + PoidsMax +
+                ", VolumeMax=" + VolumeMax +
+                ", client=" + client +
+                ", target=" + target +
+                ", facturer=" + facturer +
+                ", stations=" + stations +
+                ", conducteurs=" + conducteurs +
+                ", vehicules=" + vehicules +
+                ", depences=" + depences +
+                '}';
     }
 }

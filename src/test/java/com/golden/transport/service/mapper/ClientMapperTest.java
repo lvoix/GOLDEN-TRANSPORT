@@ -4,19 +4,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class EntiteMapperTest {
+public class ClientMapperTest {
 
-    private EntiteMapper entiteMapper;
+    private ClientMapper clientMapper;
 
     @BeforeEach
     public void setUp() {
-        entiteMapper = new EntiteMapperImpl();
+        clientMapper = new ClientMapperImpl();
     }
 
     @Test
     public void testEntityFromId() {
         Long id = 1L;
-        assertThat(entiteMapper.fromId(id).getId()).isEqualTo(id);
-        assertThat(entiteMapper.fromId(null)).isNull();
+        assertThat(clientMapper.fromId(id).getId()).isEqualTo(id);
+        assertThat(clientMapper.fromId(null)).isNull();
     }
 }

@@ -4,10 +4,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
-import com.golden.transport.domain.*;
 import com.golden.transport.enumeration.OperationStatus;
 import com.golden.transport.enumeration.OperationType;
-import com.golden.transport.util.StringPrefixedSequenceIdGenerator;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -24,7 +22,14 @@ public class Operation implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-     @Column(name = "ndossier")
+    @GenericGenerator(name = "operation_id", strategy = "com.golden.transport.util.ClientIdGenerator")
+    @GeneratedValue(generator = "operation_id")
+    @Column(name="code")
+    private String code;
+
+ /*   @GenericGenerator(name = "operation_dossier", strategy = "com.golden.transport.util.OperationCodeGenerator")
+    @GeneratedValue(generator = "operation_dossier")*/
+    @Column(name = "ndossier")
      private String ndossier;
 
 /*    @Version
@@ -79,6 +84,13 @@ public class Operation implements Serializable {
     @Column(name = "VOLUMEMAX", length = 255)
     private Integer VolumeMax;
 
+    @Column(name = "FACTURER", length = 255)
+    private Boolean facturer;
+
+    @ManyToOne
+    @JoinColumn(name = "CLIENT_ID")
+    private Client client;
+
     @ManyToOne
     @JoinColumn(name = "BENEFICIAIRE_ID")
     private Beneficiaire beneficiaire;
@@ -95,6 +107,13 @@ public class Operation implements Serializable {
 
     @OneToMany(targetEntity = Station.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "operations", orphanRemoval = true)
     private Set<Station> stations = new HashSet<>();
+
+    @OneToMany(targetEntity = Depences.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "operations", orphanRemoval = true)
+    private Set<Depences> depences = new HashSet<>();
+
+   @OneToMany(targetEntity = Invoice.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "operations", orphanRemoval = true)
+    private Set<Invoice> invoices = new HashSet<>();
+
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -180,12 +199,12 @@ public class Operation implements Serializable {
         DateFin = dateFin;
     }
 
-    public Beneficiaire getBeneficiaire() {
-        return beneficiaire;
+    public Client getClient() {
+        return client;
     }
 
-    public void setBeneficiaire(Beneficiaire beneficiaire) {
-        this.beneficiaire = beneficiaire;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public Set<OperationLineConducteurs> getConducteurs() {
@@ -266,6 +285,46 @@ public class Operation implements Serializable {
 
     public void setNdossier(String ndossier) {
         this.ndossier = ndossier;
+    }
+
+    public Boolean getFacturer() {
+        return facturer;
+    }
+
+    public void setFacturer(Boolean facturer) {
+        this.facturer = facturer;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Set<Depences> getDepences() {
+        return depences;
+    }
+
+    public void setDepences(Set<Depences> depences) {
+        this.depences = depences;
+    }
+
+   public Set<Invoice> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(Set<Invoice> invoices) {
+        this.invoices = invoices;
+    }
+
+    public Beneficiaire getBeneficiaire() {
+        return beneficiaire;
+    }
+
+    public void setBeneficiaire(Beneficiaire beneficiaire) {
+        this.beneficiaire = beneficiaire;
     }
 
     @Override

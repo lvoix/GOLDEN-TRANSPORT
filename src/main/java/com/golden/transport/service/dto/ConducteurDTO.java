@@ -8,12 +8,9 @@ import com.golden.transport.enumeration.ScoreEnum;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
-/**
- * A DTO for the {@link Conducteur} entity.
- */
+
 public class ConducteurDTO implements Serializable {
     
     private Long id;
@@ -43,7 +40,7 @@ public class ConducteurDTO implements Serializable {
     private String linkedin;
     private String businessSector;
     private Address address;
-    private EntiteDTO entite;
+    private BeneficiaireDTO beneficiaire;
     private Set<OperationLineDTO> operations = new HashSet<>();
 
     public Long getId() {
@@ -262,12 +259,12 @@ public class ConducteurDTO implements Serializable {
         this.address = address;
     }
 
-    public EntiteDTO getEntite() {
-        return entite;
+    public BeneficiaireDTO getBeneficiaire() {
+        return beneficiaire;
     }
 
-    public void setEntite(EntiteDTO entite) {
-        this.entite = entite;
+    public void setBeneficiaire(BeneficiaireDTO beneficiaire) {
+        this.beneficiaire = beneficiaire;
     }
 
     public Set<OperationLineDTO> getOperations() {

@@ -5,9 +5,7 @@ import com.golden.transport.domain.Contact;
 import com.golden.transport.service.dto.ContactDTO;
 import org.mapstruct.Mapper;
 
-/**
- * Mapper for the entity {@link contact} and its DTO {@link contactDTO}.
- */
+
 @Mapper(componentModel = "spring", uses = {})
 public interface ContactMapper extends EntityMapper<ContactDTO, Contact> {
 

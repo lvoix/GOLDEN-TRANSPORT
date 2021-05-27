@@ -1,6 +1,5 @@
 package com.golden.transport.service;
 
-import com.golden.transport.domain.Station;
 import com.golden.transport.service.dto.StationDTO;
 
 import org.springframework.data.domain.Page;
@@ -8,15 +7,11 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
-/**
- * Service Interface for managing {@link Station}.
- */
 public interface StationService {
 
     /**
      * Save a station.
      *
-     * @param stationDTO the entity to save.
      * @return the persisted entity.
      */
     StationDTO save(StationDTO stationDTO);
@@ -24,7 +19,6 @@ public interface StationService {
     /**
      * Get all the stations.
      *
-     * @param pageable the pagination information.
      * @return the list of entities.
      */
     Page<StationDTO> findAll(Pageable pageable);

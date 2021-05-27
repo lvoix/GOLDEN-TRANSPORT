@@ -13,7 +13,7 @@ import java.util.Set;
  * A Beneficiaire.
  */
 @Entity
-@Table(name = "beneficiaire") 
+@Table(name = "Beneficiaire")
 public class Beneficiaire implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -21,6 +21,9 @@ public class Beneficiaire implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "GERANT", length = 255)
+    private String gerant;
 
     @Column(name = "TYPE",length = 255)
     @Enumerated(EnumType.STRING)
@@ -31,14 +34,29 @@ public class Beneficiaire implements Serializable {
     @Column(name = "DATE_CREATION", updatable = false)
     private Date dateCreation;
 
+    @Column(name = "DATE_CREATION_ENTITE", updatable = false)
+    private Date dateCreationEntite;
+
     @Column(name = "NAME", length = 255)
     private String name;
 
-    @Column(name = "FIRST_NAME", length = 255)
-    private String firstName;
+    @Column(name = "RC", length = 255)
+    private String rc;
 
-    @Column(name = "LAST_NAME", length = 255)
-    private String lastName;
+    @Column(name = "PATENTE", length = 255)
+    private String patente;
+
+    @Column(name = "CNSS", length = 255)
+    private String cnss;
+
+    @Column(name = "I_FISCALE", length = 255)
+    private String tp;
+
+    @Column(name = "ICE", length = 255)
+    private String ICE;
+
+    @Column(name = "ABREVIATION")
+    private ABERIVAITION abr;
 
     @Column(name = "MORE_REF", length = 255)
     private String ref;
@@ -49,18 +67,14 @@ public class Beneficiaire implements Serializable {
     @Column(name = "JOB_TITLE", length = 255)
     private String jobTitle;
 
-    @Column(name = "BEN_EMAIL", length = 255)
+    @Column(name = "ENTITE_EMAIL", length = 255)
     private String email;
 
     @Column(name = "PHONE_NUMBER", length = 255)
     private String phoneNumber;
 
     @Column(name = "STATUS", length = 255)
-    private CustomerStatus status;
-
-    @Column(name = "BENEFICIAIRE_TYPE")
-    @Enumerated(EnumType.STRING)
-    private BeneficiaireType type;
+    private BeneficiaireStatus status;
 
     @Column(name = "INDUSTRY")
     @Enumerated(EnumType.STRING)
@@ -82,6 +96,9 @@ public class Beneficiaire implements Serializable {
     @Column(name = "PERMITED", length = 255)
     private Boolean permited;
 
+    @Column(name = "ACCEPTTERMS", length = 255)
+    private Boolean acceptTerms;
+
     @Column(name = "NAF", length = 255)
     private String codeNAF;
 
@@ -100,19 +117,17 @@ public class Beneficiaire implements Serializable {
     @Column(name = "BUSINESS_SECTOR", length = 255)
     private String businessSector;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "BENEFICIAIRE_PARENT_ID")
-    Beneficiaire parent;
-
     @Embedded
     private Address address;
 
-    @OneToMany(targetEntity = Operation.class , mappedBy="beneficiaire", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    protected Set<Operation> operations = new HashSet<>();
+    @OneToMany(mappedBy = "beneficiaire", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<Conducteur> conducteurs = new HashSet<>();
 
-    @OneToMany(targetEntity = Contact.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "beneficiaire", orphanRemoval = true)
-    private Set<Contact> contacts = new HashSet<>();
+    @OneToMany(mappedBy = "beneficiaires", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<Vehicule> vehicules = new HashSet<>();
 
+    @OneToMany(mappedBy = "beneficiaire", targetEntity = Invoice.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Invoice> invoices = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -122,9 +137,16 @@ public class Beneficiaire implements Serializable {
         this.id = id;
     }
 
-
     public static long getSerialVersionUID() {
         return serialVersionUID;
+    }
+
+    public String getGerant() {
+        return gerant;
+    }
+
+    public void setGerant(String gerant) {
+        this.gerant = gerant;
     }
 
     public CustomerType getCustomerType() {
@@ -143,6 +165,14 @@ public class Beneficiaire implements Serializable {
         this.dateCreation = dateCreation;
     }
 
+    public Date getDateCreationEntite() {
+        return dateCreationEntite;
+    }
+
+    public void setDateCreationEntite(Date dateCreationEntite) {
+        this.dateCreationEntite = dateCreationEntite;
+    }
+
     public String getName() {
         return name;
     }
@@ -151,20 +181,52 @@ public class Beneficiaire implements Serializable {
         this.name = name;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getRc() {
+        return rc;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setRc(String rc) {
+        this.rc = rc;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getPatente() {
+        return patente;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setPatente(String patente) {
+        this.patente = patente;
+    }
+
+    public String getCnss() {
+        return cnss;
+    }
+
+    public void setCnss(String cnss) {
+        this.cnss = cnss;
+    }
+
+    public String getTp() {
+        return tp;
+    }
+
+    public void setTp(String tp) {
+        this.tp = tp;
+    }
+
+    public String getICE() {
+        return ICE;
+    }
+
+    public void setICE(String ICE) {
+        this.ICE = ICE;
+    }
+
+    public ABERIVAITION getAbr() {
+        return abr;
+    }
+
+    public void setAbr(ABERIVAITION abr) {
+        this.abr = abr;
     }
 
     public String getRef() {
@@ -207,20 +269,12 @@ public class Beneficiaire implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public CustomerStatus getStatus() {
+    public BeneficiaireStatus getStatus() {
         return status;
     }
 
-    public void setStatus(CustomerStatus status) {
+    public void setStatus(BeneficiaireStatus status) {
         this.status = status;
-    }
-
-    public BeneficiaireType getType() {
-        return type;
-    }
-
-    public void setType(BeneficiaireType type) {
-        this.type = type;
     }
 
     public Industry getIndustry() {
@@ -319,28 +373,20 @@ public class Beneficiaire implements Serializable {
         this.businessSector = businessSector;
     }
 
-    public Beneficiaire getParent() {
-        return parent;
+    public Set<Conducteur> getConducteurs() {
+        return conducteurs;
     }
 
-    public void setParent(Beneficiaire parent) {
-        this.parent = parent;
+    public void setConducteurs(Set<Conducteur> conducteurs) {
+        this.conducteurs = conducteurs;
     }
 
-    public Set<Operation> getOperations() {
-        return operations;
+    public Set<Vehicule> getVehicules() {
+        return vehicules;
     }
 
-    public void setOperations(Set<Operation> operations) {
-        this.operations = operations;
-    }
-
-    public Set<Contact> getContacts() {
-        return contacts;
-    }
-
-    public void setContacts(Set<Contact> contacts) {
-        this.contacts = contacts;
+    public void setVehicules(Set<Vehicule> vehicules) {
+        this.vehicules = vehicules;
     }
 
     public Address getAddress() {
@@ -349,6 +395,22 @@ public class Beneficiaire implements Serializable {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public Boolean getAcceptTerms() {
+        return acceptTerms;
+    }
+
+    public void setAcceptTerms(Boolean acceptTerms) {
+        this.acceptTerms = acceptTerms;
+    }
+
+    public Set<Invoice> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(Set<Invoice> invoices) {
+        this.invoices = invoices;
     }
 
     @Override

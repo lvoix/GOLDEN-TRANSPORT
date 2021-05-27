@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 /**
  * Spring Data  repository for the Target entity.
  */
-@SuppressWarnings("unused")
+
 @Repository
 public interface TargetRepository extends JpaRepository<Target, Long> {
 }

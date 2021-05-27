@@ -1,7 +1,5 @@
 package com.golden.transport.domain;
 
-import com.golden.transport.domain.Entite;
-import com.golden.transport.domain.Vehicule;
 import com.golden.transport.enumeration.ConducteurType;
 import com.golden.transport.enumeration.CustomerStatus;
 import com.golden.transport.enumeration.ScoreEnum;
@@ -110,8 +108,8 @@ public class Conducteur implements Serializable {
     private Set<OperationLineConducteurs> operations = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ENTITE_ID")
-    private Entite entite;
+    @JoinColumn(name = "BENEFICIAIRE_ID")
+    private Beneficiaire beneficiaire;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -341,12 +339,12 @@ public class Conducteur implements Serializable {
         this.operations = operations;
     }
 
-    public Entite getEntite() {
-        return entite;
+    public Beneficiaire getBeneficiaire() {
+        return beneficiaire;
     }
 
-    public void setEntite(Entite entite) {
-        this.entite = entite;
+    public void setBeneficiaire(Beneficiaire beneficiaire) {
+        this.beneficiaire = beneficiaire;
     }
 
     @Override

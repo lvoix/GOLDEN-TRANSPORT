@@ -2,31 +2,22 @@ package com.golden.transport.service.impl;
 
 import com.golden.transport.domain.*;
 import com.golden.transport.repository.OperationRepository;
+import com.golden.transport.service.DepencesService;
 import com.golden.transport.service.OperationService;
-import com.golden.transport.service.dto.AddressDTO;
-import com.golden.transport.service.dto.OperationADDDTO;
-import com.golden.transport.service.dto.OperationDTO;
-import com.golden.transport.service.dto.StationDTO;
-import com.golden.transport.service.mapper.AddressMapper;
-import com.golden.transport.service.mapper.OperationADDMapper;
-import com.golden.transport.service.mapper.OperationMapper;
-import com.golden.transport.service.mapper.StationMapper;
+import com.golden.transport.service.dto.*;
+import com.golden.transport.service.mapper.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.modelmapper.ModelMapper;
+import java.util.*;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
 
-/**
- * Service Implementation for managing {@link Operation}.
- */
 @Service
 @Transactional
 public class OperationServiceImpl implements OperationService {
@@ -39,14 +30,23 @@ public class OperationServiceImpl implements OperationService {
     private final OperationMapper operationMapper;
     private final AddressMapper addressMapper;
     private final StationMapper stationMapper;
+    private final DepencesMapper  depencesMapper;
+    private ModelMapper modelMapper = new ModelMapper();
+
+    private final DepencesService depencesService;
+
 
     @Autowired(required = true)
-    public OperationServiceImpl(OperationRepository operationRepository, OperationMapper operationMapper,OperationADDMapper operationADDMapper, AddressMapper addressMapper, StationMapper stationMapper) {
+    public OperationServiceImpl(OperationRepository operationRepository, OperationMapper operationMapper,OperationADDMapper operationADDMapper, AddressMapper addressMapper,
+                                StationMapper stationMapper, DepencesService depencesService,
+                                DepencesMapper  depencesMapper) {
         this.operationRepository = operationRepository;
         this.operationMapper = operationMapper;
         this.operationADDMapper = operationADDMapper;
         this.addressMapper = addressMapper;
         this.stationMapper = stationMapper;
+        this.depencesService = depencesService;
+        this.depencesMapper = depencesMapper;
     }
 
     /**
@@ -62,9 +62,11 @@ public class OperationServiceImpl implements OperationService {
         OperationDTO ok = operationMapper.toDto(operation);
         return ok;
     }
+
     private Operation preSave(OperationADDDTO operationDTO){
         Operation operation = operationADDMapper.toEntity(operationDTO);
         operation.setDateCreation(new Date());
+        operation.setFacturer(false);
         operation = operationRepository.save(operation);
 
         //preparer ajoute conducteur 1
@@ -154,11 +156,28 @@ public class OperationServiceImpl implements OperationService {
                 operation.getStations().add(station);
 
             }
-
+             // save des depences all
+        for(DepencesDTO depence : operationDTO.getDepencesall()){
+            Depences depe = depencesMapper.toEntity(depence);
+            depe.setOperations(operation);
+            depe.setEtat(true);
+            operation.getDepences().add(depe);
+        }
+            //Operation op = saveDepenceOp(operationDTO.getDepences(), operation);
 
         return operationRepository.save(operation);
 
     }
+
+  public Operation saveDepenceOp(List<DepencesDTO> depences, Operation op){
+        for(DepencesDTO depence : depences){
+                   Depences depe = depencesMapper.toEntity(depence);
+                   depe.setOperations(op);
+                   depe.setEtat(true);
+                   op.getDepences().add(depe);
+           }
+      return op;
+  }
     /**
      * Get all the operations.
      *
@@ -185,6 +204,16 @@ public class OperationServiceImpl implements OperationService {
         log.debug("Request to get Operation : {}", id);
         return operationRepository.findById(id)
             .map(operationMapper::toDto);
+    }
+
+    @Override
+    public OperationDTO getOperation1(Long operationId) {
+
+            Operation operation = operationRepository.findById(operationId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Operation not exist id = " + operationId));
+
+            return modelMapper.map(operation, OperationDTO.class);
+
     }
 
     /**

@@ -1,6 +1,5 @@
 package com.golden.transport.service;
 
-import com.golden.transport.domain.Beneficiaire;
 import com.golden.transport.service.dto.BeneficiaireDTO;
 
 import org.springframework.data.domain.Page;
@@ -8,29 +7,25 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
-/**
- * Service Interface for managing {@link Beneficiaire}.
- */
+
 public interface BeneficiaireService {
 
     /**
-     * Save a beneficiaire.
+     * Save a societe.
      *
-     * @param beneficiaireDTO the entity to save.
      * @return the persisted entity.
      */
     BeneficiaireDTO save(BeneficiaireDTO beneficiaireDTO);
 
     /**
-     * Get all the beneficiaires.
+     * Get all the societes.
      *
-     * @param pageable the pagination information.
      * @return the list of entities.
      */
     Page<BeneficiaireDTO> findAll(Pageable pageable);
 
     /**
-     * Get the "id" beneficiaire.
+     * Get the "id" societe.
      *
      * @param id the id of the entity.
      * @return the entity.
@@ -38,9 +33,11 @@ public interface BeneficiaireService {
     Optional<BeneficiaireDTO> findOne(Long id);
 
     /**
-     * Delete the "id" beneficiaire.
+     * Delete the "id" societe.
      *
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+
 }

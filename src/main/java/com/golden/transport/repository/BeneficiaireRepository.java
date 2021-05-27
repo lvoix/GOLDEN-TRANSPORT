@@ -6,9 +6,9 @@ import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
 /**
- * Spring Data  repository for the Beneficiaire entity.
+ * Spring Data  repository for the Societe Beneficiaire.
  */
-@SuppressWarnings("unused")
+
 @Repository
 public interface BeneficiaireRepository extends JpaRepository<Beneficiaire, Long> {
 }

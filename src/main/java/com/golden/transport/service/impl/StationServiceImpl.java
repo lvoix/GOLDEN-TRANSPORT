@@ -15,9 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-/**
- * Service Implementation for managing {@link Station}.
- */
+
 @Service
 @Transactional
 public class StationServiceImpl implements StationService {
@@ -36,7 +34,6 @@ public class StationServiceImpl implements StationService {
     /**
      * Save a station.
      *
-     * @param stationDTO the entity to save.
      * @return the persisted entity.
      */
     @Override

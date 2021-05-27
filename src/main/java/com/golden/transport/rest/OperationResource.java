@@ -3,11 +3,17 @@ package com.golden.transport.rest;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.golden.transport.domain.Operation;
+import com.golden.transport.response.ListResponse;
+import com.golden.transport.response.SingleResponse;
+import com.golden.transport.service.dto.ClientDTO;
 import com.golden.transport.service.dto.OperationADDDTO;
+import com.golden.transport.service.dto.operationTiersAddDTO;
 import com.golden.transport.service.dto.OperationDTO;
 import com.golden.transport.service.dto.OperationUpdateDTO;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +30,8 @@ import com.golden.transport.util.HeaderUtil;
 import com.golden.transport.util.PaginationUtil;
 import com.golden.transport.util.ResponseUtil;
 
+import javax.websocket.server.PathParam;
+
 /**
  * REST controller for managing {@link Operation}.
  */
@@ -37,7 +45,7 @@ public class OperationResource {
 
     @Value("${clientApp.name}")
     private String applicationName;
-
+    private ModelMapper modelMapper = new ModelMapper();
     private final OperationService operationService;
     
     @Autowired(required = true)
@@ -52,7 +60,7 @@ public class OperationResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new operationDTO, or with status {@code 400 (Bad Request)} if the operation has already an ID.
      * @throws Exception if the Location URI syntax is incorrect.
      */
-    @PostMapping("/operations")
+/*    @PostMapping("/operations")
     public ResponseEntity<OperationDTO> createOperation(@RequestBody OperationADDDTO operationDTO) throws Exception {
         log.debug("REST request to save Operation : {}", operationDTO);
        if (operationDTO.getId() != null) {
@@ -62,7 +70,19 @@ public class OperationResource {
         return ResponseEntity.created(new URI("/api/operations/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
+    }*/
+   @PostMapping("/operations")
+    public ResponseEntity<OperationDTO> createOperation(@RequestBody operationTiersAddDTO operationDTO) throws Exception {
+        log.debug("REST request to save Operation : {}", operationDTO);
+       if (operationDTO.getId() != null) {
+            throw new Exception("A new operation cannot already have an ID"+ENTITY_NAME+ "idexists");
+        }
+        OperationDTO result = operationService.save(null);
+        return ResponseEntity.created(new URI("/api/operations/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+            .body(result);
     }
+
 
     /**
      * {@code PUT  /operations} : Updates an existing operation.
@@ -92,13 +112,20 @@ public class OperationResource {
      * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of operations in body.
      */
-    @GetMapping("/operations")
+
+/*
     public ResponseEntity<List<OperationDTO>> getAllOperations(Pageable pageable) {
         log.debug("REST request to get a page of Operations");
         Page<OperationDTO> page = operationService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         ResponseEntity<List<OperationDTO>> res = ResponseEntity.ok().headers(headers).body(page.getContent());
         return res ;
+    }
+*/
+    @GetMapping("/operations")
+    public ListResponse<OperationDTO> getAllOperations(Pageable pageable) {
+        return new ListResponse<>(operationService.findAll(pageable).stream()
+                .map(operation -> modelMapper.map(operation, OperationDTO.class)).collect(Collectors.toList()));
     }
 
     /**
@@ -112,6 +139,12 @@ public class OperationResource {
         log.debug("REST request to get Operation : {}", id);
         Optional<OperationDTO> operationDTO = operationService.findOne(id);
         return ResponseUtil.wrapOrNotFound(operationDTO);
+    }
+
+
+    @GetMapping(value = "/operations/operation")
+    public SingleResponse<OperationDTO> getOperation1(@PathParam("operationId") Long operationId){
+        return new SingleResponse<>(operationService.getOperation1(operationId));
     }
 
     /**

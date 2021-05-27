@@ -6,9 +6,7 @@ import com.golden.transport.service.dto.OperLineConDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-/**
- * Mapper for the entity {@link OperationLineConducteurs} and its DTO {@link OperLineConDTO}.
- */
+
 @Mapper(componentModel = "spring", uses = { OperationMapper.class, ConducteurMapper.class})
 public interface OperationLineConMapper extends EntityMapper<OperLineConDTO, OperationLineConducteurs> {
 

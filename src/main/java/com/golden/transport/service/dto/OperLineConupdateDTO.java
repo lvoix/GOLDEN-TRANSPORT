@@ -2,9 +2,7 @@ package com.golden.transport.service.dto;
 
 import java.io.Serializable;
 
-/**
- * A DTO for the {@link Operation Line Conducteurs} entity.
- */
+
 public class OperLineConupdateDTO implements Serializable {
 
     private Long id;
@@ -18,7 +16,6 @@ public class OperLineConupdateDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
 
     public AssociadToConducteurDTO getConducteurs() {
         return conducteurs;

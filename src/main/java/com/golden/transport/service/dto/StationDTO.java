@@ -6,9 +6,7 @@ import com.golden.transport.domain.Station;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * A DTO for the {@link Station} entity.
- */
+
 public class StationDTO implements Serializable {
     
     private Long id;

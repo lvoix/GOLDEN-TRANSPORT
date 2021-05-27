@@ -1,11 +1,12 @@
 package com.golden.transport.domain;
 
+import org.springframework.data.annotation.CreatedDate;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
-/**
- * A Station.
- */
+
 @Entity
 @Table(name = "depences")
 public class Depences implements Serializable {
@@ -16,7 +17,30 @@ public class Depences implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    
+    private Long depenceId ;
+
+    @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
+
+    private String type;
+
+    private String motif;
+
+    private String lieu;
+
+    private Double prix;
+
+    private String devise;
+
+    private Boolean etat;
+
+
+    @ManyToOne
+    @JoinColumn(name = "OPERATION_ID")
+    private Operation operations;
+
+
     public Long getId() {
         return id;
     }
@@ -27,6 +51,79 @@ public class Depences implements Serializable {
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
+    }
+
+    public Long getDepenceId() {
+        return depenceId;
+    }
+
+    public void setDepenceId(Long depenceId) {
+        this.depenceId = depenceId;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getMotif() {
+        return motif;
+    }
+
+    public void setMotif(String motif) {
+        this.motif = motif;
+    }
+
+    public String getLieu() {
+        return lieu;
+    }
+
+    public void setLieu(String lieu) {
+        this.lieu = lieu;
+    }
+
+    public Double getPrix() {
+        return prix;
+    }
+
+    public void setPrix(Double prix) {
+        this.prix = prix;
+    }
+
+    public String getDevise() {
+        return devise;
+    }
+
+    public void setDevise(String devise) {
+        this.devise = devise;
+    }
+
+    public Operation getOperations() {
+        return operations;
+    }
+
+    public void setOperations(Operation operations) {
+        this.operations = operations;
+    }
+
+
+    public Boolean getEtat() {
+        return etat;
+    }
+
+    public void setEtat(Boolean etat) {
+        this.etat = etat;
     }
 
     @Override
@@ -48,7 +145,15 @@ public class Depences implements Serializable {
     @Override
     public String toString() {
         return "Depences{" +
-            "id=" + getId() +
-            "}";
+                "id=" + id +
+                ", DepenceId=" + depenceId +
+                ", date=" + date +
+                ", type='" + type + '\'' +
+                ", motif='" + motif + '\'' +
+                ", lieu='" + lieu + '\'' +
+                ", prix=" + prix +
+                ", devise='" + devise + '\'' +
+                ", operations=" + operations +
+                '}';
     }
 }

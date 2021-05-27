@@ -17,9 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-/**
- * Service Implementation for managing {@link Chauffeur}.
- */
+
 @Service
 @Transactional
 public class ConducteurServiceImpl implements ConducteurService {
@@ -52,7 +50,6 @@ public class ConducteurServiceImpl implements ConducteurService {
     /**
      * Get all the conducteurs.
      *
-     * @param pageable the pagination information.
      * @return the list of entities.
      */
     @Override

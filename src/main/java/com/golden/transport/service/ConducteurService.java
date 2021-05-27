@@ -8,9 +8,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
-/**
- * Service Interface for managing {@link Chauffeur}.
- */
+
 public interface ConducteurService {
 
     /**
@@ -24,7 +22,6 @@ public interface ConducteurService {
     /**
      * Get all the chauffeurs.
      *
-     * @param pageable the pagination information.
      * @return the list of entities.
      */
     Page<ConducteurDTO> findAll(int page, int size, String sortBy);

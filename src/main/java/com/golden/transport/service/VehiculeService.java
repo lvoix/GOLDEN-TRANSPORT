@@ -1,6 +1,5 @@
 package com.golden.transport.service;
 
-import com.golden.transport.domain.Vehicule;
 import com.golden.transport.service.dto.VehiculeDTO;
 
 import org.springframework.data.domain.Page;
@@ -9,15 +8,12 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Service Interface for managing {@link Vehicule}.
- */
+
 public interface VehiculeService {
 
     /**
      * Save a vehicule.
      *
-     * @param vehiculeDTO the entity to save.
      * @return the persisted entity.
      */
     VehiculeDTO save(VehiculeDTO vehiculeDTO);
@@ -25,7 +21,6 @@ public interface VehiculeService {
     /**
      * Get all the vehicules.
      *
-     * @param pageable the pagination information.
      * @return the list of entities.
      */
      List<VehiculeDTO> findAll(Integer pageNo, Integer pageSize, String sortBy) ;

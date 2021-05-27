@@ -1,82 +1,87 @@
 package com.golden.transport.service.dto;
 
-import com.golden.transport.domain.Beneficiaire;
+import com.golden.transport.domain.Address;
 import com.golden.transport.enumeration.*;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
 
-/**
- * A DTO for the {@link Beneficiaire} entity.
- */
+
 public class BeneficiaireDTO implements Serializable {
     
     private Long id;
-    private String name;
-
+    private String gerant;
     private CustomerType customerType;
-
     private Date dateCreation;
-
-    private String firstName;
-
-    private String lastName;
-
+    private Date dateCreationEntite;
+    private String name;
+    private String rc;
+    private String patente;
+    private String cnss;
+    private String tp;
+    private String ICE;
+    private ABERIVAITION abr;
     private String ref;
-
     private String webSite;
-
     private String jobTitle;
-
     private String email;
-
     private String phoneNumber;
-
-    private CustomerStatus status;
-
-    private BeneficiaireType type;
-
+    private BeneficiaireStatus status;
     private Industry industry;
-
     private Float turnover;
-
     private ScoreEnum score;
-
     private String telephone;
-
     private String fax;
-
     private Boolean permited;
-
     private String codeNAF;
-
     private Integer employees;
-
     private String twitter;
-
     private String facebook;
-
     private String linkedin;
-
     private String businessSector;
+    private Address address;
+    private Set<InvoicesDTO> invoices = new HashSet<>();
 
-    private AddressDTO address;
 
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
 
-    public AddressDTO getAddress() {
-        return address;
+    public String getGerant() {
+        return gerant;
     }
 
-    public void setAddress(AddressDTO address) {
-        this.address = address;
+    public void setGerant(String gerant) {
+        this.gerant = gerant;
+    }
+
+    public CustomerType getCustomerType() {
+        return customerType;
+    }
+
+    public void setCustomerType(CustomerType customerType) {
+        this.customerType = customerType;
+    }
+
+    public Date getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
+    }
+
+    public Date getDateCreationEntite() {
+        return dateCreationEntite;
+    }
+
+    public void setDateCreationEntite(Date dateCreationEntite) {
+        this.dateCreationEntite = dateCreationEntite;
     }
 
     public String getName() {
@@ -87,20 +92,52 @@ public class BeneficiaireDTO implements Serializable {
         this.name = name;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getRc() {
+        return rc;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setRc(String rc) {
+        this.rc = rc;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getPatente() {
+        return patente;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setPatente(String patente) {
+        this.patente = patente;
+    }
+
+    public String getCnss() {
+        return cnss;
+    }
+
+    public void setCnss(String cnss) {
+        this.cnss = cnss;
+    }
+
+    public String getTp() {
+        return tp;
+    }
+
+    public void setTp(String tp) {
+        this.tp = tp;
+    }
+
+    public String getICE() {
+        return ICE;
+    }
+
+    public void setICE(String ICE) {
+        this.ICE = ICE;
+    }
+
+    public ABERIVAITION getAbr() {
+        return abr;
+    }
+
+    public void setAbr(ABERIVAITION abr) {
+        this.abr = abr;
     }
 
     public String getRef() {
@@ -143,20 +180,12 @@ public class BeneficiaireDTO implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public CustomerStatus getStatus() {
+    public BeneficiaireStatus getStatus() {
         return status;
     }
 
-    public void setStatus(CustomerStatus status) {
+    public void setStatus(BeneficiaireStatus status) {
         this.status = status;
-    }
-
-    public BeneficiaireType getType() {
-        return type;
-    }
-
-    public void setType(BeneficiaireType type) {
-        this.type = type;
     }
 
     public Industry getIndustry() {
@@ -255,47 +284,19 @@ public class BeneficiaireDTO implements Serializable {
         this.businessSector = businessSector;
     }
 
-    public CustomerType getCustomerType() {
-        return customerType;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setCustomerType(CustomerType customerType) {
-        this.customerType = customerType;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
-    public Date getDateCreation() {
-        return dateCreation;
+    public Set<InvoicesDTO> getInvoices() {
+        return invoices;
     }
 
-    public void setDateCreation(Date dateCreation) {
-        this.dateCreation = dateCreation;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        BeneficiaireDTO beneficiaireDTO = (BeneficiaireDTO) o;
-        if (beneficiaireDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), beneficiaireDTO.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
-
-    @Override
-    public String toString() {
-        return "BeneficiaireDTO{" +
-            "id=" + getId() +
-            "}";
+    public void setInvoices(Set<InvoicesDTO> invoices) {
+        this.invoices = invoices;
     }
 }

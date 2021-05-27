@@ -4,9 +4,7 @@ import com.golden.transport.domain.OperationLineVehicules;
 
 import java.io.Serializable;
 
-/**
- * A DTO for the {@link Operation Line Vehicules} entity.
- */
+
 public class OperLineVehDTO implements Serializable {
 
     private Long id;

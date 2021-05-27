@@ -14,6 +14,8 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import com.golden.transport.domain.Beneficiaire;
+import com.golden.transport.service.dto.BeneficiaireDTO;
 import com.golden.transport.util.TestUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,12 +27,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.golden.transport.DemoApplication;
-import com.golden.transport.domain.Beneficiaire;
 import com.golden.transport.repository.BeneficiaireRepository;
 import com.golden.transport.rest.BeneficiaireResource;
 import com.golden.transport.service.BeneficiaireService;
-import com.golden.transport.service.dto.BeneficiaireDTO;
-import com.golden.transport.service.mapper.BeneficiaireMapper;
+import com.golden.transport.service.mapper.EntiteMapper;
 
 /**
  * Integration tests for the {@link BeneficiaireResource} REST controller.
@@ -44,7 +44,7 @@ public class BeneficiaireResourceIT {
     private BeneficiaireRepository beneficiaireRepository;
 
     @Autowired
-    private BeneficiaireMapper beneficiaireMapper;
+    private EntiteMapper entiteMapper;
 
     @Autowired
     private BeneficiaireService beneficiaireService;
@@ -53,7 +53,7 @@ public class BeneficiaireResourceIT {
     private EntityManager em;
 
     @Autowired
-    private MockMvc restBeneficiaireMockMvc;
+    private MockMvc restEntiteMockMvc;
 
     private Beneficiaire beneficiaire;
 
@@ -85,12 +85,12 @@ public class BeneficiaireResourceIT {
 
     @Test
     @Transactional
-    public void createBeneficiaire() throws Exception {
+    public void createEntite() throws Exception {
         int databaseSizeBeforeCreate = beneficiaireRepository.findAll().size();
 
         // Create the Beneficiaire
-        BeneficiaireDTO beneficiaireDTO = beneficiaireMapper.toDto(beneficiaire);
-        restBeneficiaireMockMvc.perform(post("/api/beneficiaires")
+        BeneficiaireDTO beneficiaireDTO = entiteMapper.toDto(beneficiaire);
+        restEntiteMockMvc.perform(post("/api/entites")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(beneficiaireDTO)))
             .andExpect(status().isCreated());
@@ -103,15 +103,15 @@ public class BeneficiaireResourceIT {
 
     @Test
     @Transactional
-    public void createBeneficiaireWithExistingId() throws Exception {
+    public void createEntiteWithExistingId() throws Exception {
         int databaseSizeBeforeCreate = beneficiaireRepository.findAll().size();
 
         // Create the Beneficiaire with an existing ID
         beneficiaire.setId(1L);
-        BeneficiaireDTO beneficiaireDTO = beneficiaireMapper.toDto(beneficiaire);
+        BeneficiaireDTO beneficiaireDTO = entiteMapper.toDto(beneficiaire);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restBeneficiaireMockMvc.perform(post("/api/beneficiaires")
+        restEntiteMockMvc.perform(post("/api/entites")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(beneficiaireDTO)))
             .andExpect(status().isBadRequest());
@@ -124,12 +124,12 @@ public class BeneficiaireResourceIT {
 
     @Test
     @Transactional
-    public void getAllBeneficiaires() throws Exception {
+    public void getAllEntites() throws Exception {
         // Initialize the database
         beneficiaireRepository.saveAndFlush(beneficiaire);
 
-        // Get all the beneficiaireList
-        restBeneficiaireMockMvc.perform(get("/api/beneficiaires?sort=id,desc"))
+        // Get all the EntiteList
+        restEntiteMockMvc.perform(get("/api/entites?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(beneficiaire.getId().intValue())));
@@ -137,12 +137,12 @@ public class BeneficiaireResourceIT {
     
     @Test
     @Transactional
-    public void getBeneficiaire() throws Exception {
+    public void getEntite() throws Exception {
         // Initialize the database
         beneficiaireRepository.saveAndFlush(beneficiaire);
 
-        // Get the beneficiaire
-        restBeneficiaireMockMvc.perform(get("/api/beneficiaires/{id}", beneficiaire.getId()))
+        // Get the Beneficiaire
+        restEntiteMockMvc.perform(get("/api/entites/{id}", beneficiaire.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(beneficiaire.getId().intValue()));
@@ -150,27 +150,27 @@ public class BeneficiaireResourceIT {
 
     @Test
     @Transactional
-    public void getNonExistingBeneficiaire() throws Exception {
-        // Get the beneficiaire
-        restBeneficiaireMockMvc.perform(get("/api/beneficiaires/{id}", Long.MAX_VALUE))
+    public void getNonExistingEntite() throws Exception {
+        // Get the Beneficiaire
+        restEntiteMockMvc.perform(get("/api/entites/{id}", Long.MAX_VALUE))
             .andExpect(status().isNotFound());
     }
 
     @Test
     @Transactional
-    public void updateBeneficiaire() throws Exception {
+    public void updateEntite() throws Exception {
         // Initialize the database
         beneficiaireRepository.saveAndFlush(beneficiaire);
 
         int databaseSizeBeforeUpdate = beneficiaireRepository.findAll().size();
 
-        // Update the beneficiaire
+        // Update the Beneficiaire
         Beneficiaire updatedBeneficiaire = beneficiaireRepository.findById(beneficiaire.getId()).get();
         // Disconnect from session so that the updates on updatedBeneficiaire are not directly saved in db
         em.detach(updatedBeneficiaire);
-        BeneficiaireDTO beneficiaireDTO = beneficiaireMapper.toDto(updatedBeneficiaire);
+        BeneficiaireDTO beneficiaireDTO = entiteMapper.toDto(updatedBeneficiaire);
 
-        restBeneficiaireMockMvc.perform(put("/api/beneficiaires")
+        restEntiteMockMvc.perform(put("/api/entites")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(beneficiaireDTO)))
             .andExpect(status().isOk());
@@ -183,14 +183,14 @@ public class BeneficiaireResourceIT {
 
     @Test
     @Transactional
-    public void updateNonExistingBeneficiaire() throws Exception {
+    public void updateNonExistingEntite() throws Exception {
         int databaseSizeBeforeUpdate = beneficiaireRepository.findAll().size();
 
         // Create the Beneficiaire
-        BeneficiaireDTO beneficiaireDTO = beneficiaireMapper.toDto(beneficiaire);
+        BeneficiaireDTO beneficiaireDTO = entiteMapper.toDto(beneficiaire);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restBeneficiaireMockMvc.perform(put("/api/beneficiaires")
+        restEntiteMockMvc.perform(put("/api/entites")
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(beneficiaireDTO)))
             .andExpect(status().isBadRequest());
@@ -202,14 +202,14 @@ public class BeneficiaireResourceIT {
 
     @Test
     @Transactional
-    public void deleteBeneficiaire() throws Exception {
+    public void deleteEntite() throws Exception {
         // Initialize the database
         beneficiaireRepository.saveAndFlush(beneficiaire);
 
         int databaseSizeBeforeDelete = beneficiaireRepository.findAll().size();
 
-        // Delete the beneficiaire
-        restBeneficiaireMockMvc.perform(delete("/api/beneficiaires/{id}", beneficiaire.getId())
+        // Delete the Beneficiaire
+        restEntiteMockMvc.perform(delete("/api/entites/{id}", beneficiaire.getId())
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 

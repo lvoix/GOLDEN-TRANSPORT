@@ -2,9 +2,7 @@ package com.golden.transport.service.dto;
 
 import java.io.Serializable;
 
-/**
- * A DTO for the {@link Operation Line Vehicules} entity.
- */
+
 public class AssociadToOperLineVehDTO implements Serializable {
 
     private Long id;

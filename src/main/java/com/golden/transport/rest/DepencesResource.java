@@ -69,6 +69,12 @@ public class DepencesResource {
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
+    @PostMapping("/depencesall")
+    public Boolean saveAllDepences(@RequestBody List<DepencesDTO>  depencesDTOs) throws Exception {
+        log.debug("REST request to save Depences : {}", depencesDTOs);
+        Boolean result = depencesService.saveAll(depencesDTOs);
+        return true;
+    }
 
     /**
      * {@code PUT  /depences} : Updates an existing depences.

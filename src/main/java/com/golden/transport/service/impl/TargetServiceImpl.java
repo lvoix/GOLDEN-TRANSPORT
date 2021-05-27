@@ -15,9 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-/**
- * Service Implementation for managing {@link Traget}.
- */
+
 @Service
 @Transactional
 public class TargetServiceImpl implements TargetService {
@@ -36,7 +34,6 @@ public class TargetServiceImpl implements TargetService {
     /**
      * Save a traget.
      *
-     * @param targetDTO the entity to save.
      * @return the persisted entity.
      */
     @Override

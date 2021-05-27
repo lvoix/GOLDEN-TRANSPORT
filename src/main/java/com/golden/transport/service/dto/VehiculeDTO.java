@@ -1,24 +1,17 @@
 package com.golden.transport.service.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.golden.transport.domain.Entite;
-import com.golden.transport.domain.Vehicule;
 import com.golden.transport.enumeration.VehiculeColor;
 import com.golden.transport.enumeration.VehiculeGenre;
 import com.golden.transport.enumeration.VehiculeStatus;
 import com.golden.transport.enumeration.VehiculeType;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
-/**
- * A DTO for the {@link Vehicule} entity.
- */
+
 public class VehiculeDTO implements Serializable {
     
     private Long id;
@@ -70,7 +63,7 @@ public class VehiculeDTO implements Serializable {
 
     private String email;
 
-    private EntiteDTO entites;
+    private BeneficiaireDTO beneficiaires;
 
     private Set<OperLineVehDTO> lineoperations = new HashSet<>();
 
@@ -242,12 +235,12 @@ public class VehiculeDTO implements Serializable {
         this.lineoperations = lineoperations;
     }
 
-    public EntiteDTO getEntites() {
-        return entites;
+    public BeneficiaireDTO getBeneficiaires() {
+        return beneficiaires;
     }
 
-    public void setEntites(EntiteDTO entites) {
-        this.entites = entites;
+    public void setBeneficiaires(BeneficiaireDTO beneficiaires) {
+        this.beneficiaires = beneficiaires;
     }
 
     public String getEmail() {

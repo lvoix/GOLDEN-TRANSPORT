@@ -6,9 +6,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 
 @Entity
@@ -36,8 +34,8 @@ public class Contact implements Serializable {
     private Address address;
 
     @ManyToOne
-    @JoinColumn(name = "BENEFICAIRE_ID_Contact")
-    private Beneficiaire beneficiaire;
+    @JoinColumn(name = "CLIENT_ID_Contact")
+    private Client client;
 
 
     public Long getId() {
@@ -88,12 +86,12 @@ public class Contact implements Serializable {
         this.dateCreation = dateCreation;
     }
 
-    public Beneficiaire getBeneficiaire() {
-        return beneficiaire;
+    public Client getClient() {
+        return client;
     }
 
-    public void setBeneficiaire(Beneficiaire beneficiaire) {
-        this.beneficiaire = beneficiaire;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public Address getAddress() {
@@ -115,11 +113,11 @@ public class Contact implements Serializable {
                 Objects.equals(getLastName(), contact.getLastName()) &&
                 Objects.equals(getJobTitle(), contact.getJobTitle()) &&
                 Objects.equals(getDateCreation(), contact.getDateCreation()) &&
-                Objects.equals(getBeneficiaire(), contact.getBeneficiaire());
+                Objects.equals(getClient(), contact.getClient());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getEmail(), getFirstName(), getLastName(), getJobTitle(), getDateCreation(), getBeneficiaire());
+        return Objects.hash(getId(), getEmail(), getFirstName(), getLastName(), getJobTitle(), getDateCreation(), getClient());
     }
 }

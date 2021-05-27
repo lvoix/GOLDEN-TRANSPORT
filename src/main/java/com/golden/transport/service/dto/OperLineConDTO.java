@@ -5,9 +5,7 @@ import com.golden.transport.domain.OperationLineConducteurs;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * A DTO for the {@link Operation Line Conducteurs} entity.
- */
+
 public class OperLineConDTO implements Serializable {
 
     private Long id;

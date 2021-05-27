@@ -7,9 +7,7 @@ import com.golden.transport.enumeration.VehiculeType;
 
 import java.io.Serializable;
 
-/**
- * A DTO for the {@link Vehicule} entity.
- */
+
 public class AssociadToVehiculeDTO implements Serializable {
     
     private Long id;

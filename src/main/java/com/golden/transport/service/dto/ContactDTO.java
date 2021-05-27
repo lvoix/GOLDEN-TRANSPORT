@@ -5,9 +5,7 @@ import com.golden.transport.domain.Contact;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * A DTO for the {@link contact} entity.
- */
+
 public class ContactDTO implements Serializable {
     
     private Long id;

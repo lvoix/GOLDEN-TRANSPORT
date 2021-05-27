@@ -1,8 +1,6 @@
 package com.golden.transport.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.golden.transport.domain.Operation;
 import com.golden.transport.enumeration.VehiculeColor;
 import com.golden.transport.enumeration.VehiculeGenre;
 import com.golden.transport.enumeration.VehiculeStatus;
@@ -12,7 +10,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -108,8 +105,8 @@ public class Vehicule implements Serializable {
     private Set<OperationLineVehicules> Lineoperations = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ENTITE_ID")
-    private Entite entites;
+    @JoinColumn(name = "BENEFICIAIRE_ID")
+    private Beneficiaire beneficiaires;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -131,15 +128,15 @@ public class Vehicule implements Serializable {
         Lineoperations = lineoperations;
     }
 
-    public Entite getEntites() {
-        return entites;
+    public Beneficiaire getBeneficiaires() {
+        return beneficiaires;
     }
 
-    public void setEntites(Entite entites) {
-        this.entites = entites;
+    public void setBeneficiaires(Beneficiaire beneficiaires) {
+        this.beneficiaires = beneficiaires;
     }
 
-   public String getMatricule() {
+    public String getMatricule() {
         return matricule;
     }
 

@@ -1,90 +1,79 @@
 package com.golden.transport.service.dto;
 
-import com.golden.transport.domain.Address;
-import com.golden.transport.domain.Entite;
-import com.golden.transport.enumeration.CustomerType;
-import com.golden.transport.enumeration.EntiteStatus;
-import com.golden.transport.enumeration.Industry;
-import com.golden.transport.enumeration.ScoreEnum;
+import com.golden.transport.enumeration.*;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-/**
- * A DTO for the {@link Entite} entity.
- */
-public class EntiteDTO implements Serializable {
+
+public class ClientDTO implements Serializable {
     
     private Long id;
-    private String gerant;
-    private CustomerType customerType;
-    private Date dateCreation;
-    private Date dateCreationEntite;
     private String name;
-    private String rc;
-    private String patente;
-    private String cnss;
-    private String tp;
-    private String ICE;
-    private String abr;
+
+    private CustomerType customerType;
+
+    private Date dateCreation;
+
+    private String firstName;
+
+    private String lastName;
+
     private String ref;
+
     private String webSite;
+
     private String jobTitle;
+
     private String email;
+
     private String phoneNumber;
-    private EntiteStatus status;
+
+    private CustomerStatus status;
+
+    private ClientType type;
+
     private Industry industry;
+
     private Float turnover;
+
     private ScoreEnum score;
+
     private String telephone;
+
     private String fax;
+
     private Boolean permited;
+
     private String codeNAF;
+
     private Integer employees;
+
     private String twitter;
+
     private String facebook;
+
     private String linkedin;
+
     private String businessSector;
-    private Address address;
+
+    private AddressDTO address;
 
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
 
-    public String getGerant() {
-        return gerant;
+    public AddressDTO getAddress() {
+        return address;
     }
 
-    public void setGerant(String gerant) {
-        this.gerant = gerant;
-    }
-
-    public CustomerType getCustomerType() {
-        return customerType;
-    }
-
-    public void setCustomerType(CustomerType customerType) {
-        this.customerType = customerType;
-    }
-
-    public Date getDateCreation() {
-        return dateCreation;
-    }
-
-    public void setDateCreation(Date dateCreation) {
-        this.dateCreation = dateCreation;
-    }
-
-    public Date getDateCreationEntite() {
-        return dateCreationEntite;
-    }
-
-    public void setDateCreationEntite(Date dateCreationEntite) {
-        this.dateCreationEntite = dateCreationEntite;
+    public void setAddress(AddressDTO address) {
+        this.address = address;
     }
 
     public String getName() {
@@ -95,52 +84,20 @@ public class EntiteDTO implements Serializable {
         this.name = name;
     }
 
-    public String getRc() {
-        return rc;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setRc(String rc) {
-        this.rc = rc;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getPatente() {
-        return patente;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setPatente(String patente) {
-        this.patente = patente;
-    }
-
-    public String getCnss() {
-        return cnss;
-    }
-
-    public void setCnss(String cnss) {
-        this.cnss = cnss;
-    }
-
-    public String getTp() {
-        return tp;
-    }
-
-    public void setTp(String tp) {
-        this.tp = tp;
-    }
-
-    public String getICE() {
-        return ICE;
-    }
-
-    public void setICE(String ICE) {
-        this.ICE = ICE;
-    }
-
-    public String getAbr() {
-        return abr;
-    }
-
-    public void setAbr(String abr) {
-        this.abr = abr;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getRef() {
@@ -183,12 +140,20 @@ public class EntiteDTO implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public EntiteStatus getStatus() {
+    public CustomerStatus getStatus() {
         return status;
     }
 
-    public void setStatus(EntiteStatus status) {
+    public void setStatus(CustomerStatus status) {
         this.status = status;
+    }
+
+    public ClientType getType() {
+        return type;
+    }
+
+    public void setType(ClientType type) {
+        this.type = type;
     }
 
     public Industry getIndustry() {
@@ -287,11 +252,47 @@ public class EntiteDTO implements Serializable {
         this.businessSector = businessSector;
     }
 
-    public Address getAddress() {
-        return address;
+    public CustomerType getCustomerType() {
+        return customerType;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setCustomerType(CustomerType customerType) {
+        this.customerType = customerType;
+    }
+
+    public Date getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ClientDTO clientDTO = (ClientDTO) o;
+        if (clientDTO.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), clientDTO.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getId());
+    }
+
+    @Override
+    public String toString() {
+        return "ClientDTO{" +
+            "id=" + getId() +
+            "}";
     }
 }

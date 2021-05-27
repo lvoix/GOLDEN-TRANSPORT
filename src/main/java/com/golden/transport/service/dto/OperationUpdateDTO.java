@@ -9,9 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * A DTO for the {@link Operation} entity.
- */
+
 public class OperationUpdateDTO implements Serializable {
 
     private Long id;
@@ -40,7 +38,7 @@ public class OperationUpdateDTO implements Serializable {
     private String state;
     private String zip;
 
-    private BeneficiaireDTO beneficiaire ;
+    private ClientDTO client ;
 
     private List<AddressDTO> adressesLoad = new ArrayList<AddressDTO>();
     private List<AddressDTO> adressesLivraison = new ArrayList<AddressDTO>();
@@ -181,12 +179,12 @@ public class OperationUpdateDTO implements Serializable {
         this.zip = zip;
     }
 
-    public BeneficiaireDTO getBeneficiaire() {
-        return beneficiaire;
+    public ClientDTO getClient() {
+        return client;
     }
 
-    public void setBeneficiaire(BeneficiaireDTO beneficiaire) {
-        this.beneficiaire = beneficiaire;
+    public void setClient(ClientDTO client) {
+        this.client = client;
     }
 
     public List<AddressDTO> getAdressesLoad() {

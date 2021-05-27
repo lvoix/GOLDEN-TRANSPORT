@@ -3,14 +3,10 @@ package com.golden.transport.service.mapper;
 
 import com.golden.transport.domain.Operation;
 import com.golden.transport.service.dto.OperationADDDTO;
-import com.golden.transport.service.dto.OperationDTO;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
-/**
- * Mapper for the entity {@link Operation} and its DTO {@link OperationDTO}.
- */
-@Mapper(componentModel = "spring", uses = {TargetMapper.class, BeneficiaireMapper.class, OperationLineConMapper.class, OperationLineVehMapper.class})
+
+@Mapper(componentModel = "spring", uses = {TargetMapper.class, ClientMapper.class, OperationLineConMapper.class, OperationLineVehMapper.class})
 public interface OperationADDMapper extends EntityMapper<OperationADDDTO, Operation> {
 
 

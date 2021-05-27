@@ -15,9 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-/**
- * Service Implementation for managing {@link contacts}.
- */
+
 @Service
 @Transactional
 public class ContactServiceImpl implements ContactService {
@@ -37,7 +35,6 @@ public class ContactServiceImpl implements ContactService {
     /**
      * Save a Contact.
      *
-     * @param ContactDTO the entity to save.
      * @return the persisted entity.
      */
     @Override
