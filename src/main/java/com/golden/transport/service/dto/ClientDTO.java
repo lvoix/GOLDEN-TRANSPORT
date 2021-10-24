@@ -2,23 +2,35 @@ package com.golden.transport.service.dto;
 
 import com.golden.transport.enumeration.*;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
 
-public class ClientDTO implements Serializable {
-    
+public class ClientDTO {
+
     private Long id;
+
     private String name;
 
     private CustomerType customerType;
 
     private Date dateCreation;
 
-    private String firstName;
+    private String responsable;
 
-    private String lastName;
+    private String raisonSociale;
+
+    private FormeJuridique formeJuridique;
+
+    private TypeDocument typeDocument;
+
+    private String numeroDocument;
+
+    private String ICE;
+
+    private String nom;
+
+    private String prenom;
 
     private String ref;
 
@@ -27,6 +39,8 @@ public class ClientDTO implements Serializable {
     private String jobTitle;
 
     private String email;
+
+    private String emailPersonnel;
 
     private String phoneNumber;
 
@@ -58,7 +72,9 @@ public class ClientDTO implements Serializable {
 
     private String businessSector;
 
-    private AddressDTO address;
+    private String activite;
+
+   // private AddressDTO address;
 
     public Long getId() {
         return id;
@@ -68,13 +84,13 @@ public class ClientDTO implements Serializable {
         this.id = id;
     }
 
-    public AddressDTO getAddress() {
+/*    public AddressDTO getAddress() {
         return address;
     }
 
     public void setAddress(AddressDTO address) {
         this.address = address;
-    }
+    }*/
 
     public String getName() {
         return name;
@@ -84,20 +100,20 @@ public class ClientDTO implements Serializable {
         this.name = name;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getNom() {
+        return nom;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getPrenom() {
+        return prenom;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
     }
 
     public String getRef() {
@@ -268,6 +284,70 @@ public class ClientDTO implements Serializable {
         this.dateCreation = dateCreation;
     }
 
+    public String getResponsable() {
+        return responsable;
+    }
+
+    public void setResponsable(String responsable) {
+        this.responsable = responsable;
+    }
+
+    public String getRaisonSociale() {
+        return raisonSociale;
+    }
+
+    public void setRaisonSociale(String raisonSociale) {
+        this.raisonSociale = raisonSociale;
+    }
+
+    public FormeJuridique getFormeJuridique() {
+        return formeJuridique;
+    }
+
+    public void setFormeJuridique(FormeJuridique formeJuridique) {
+        this.formeJuridique = formeJuridique;
+    }
+
+    public TypeDocument getTypeDocument() {
+        return typeDocument;
+    }
+
+    public void setTypeDocument(TypeDocument typeDocument) {
+        this.typeDocument = typeDocument;
+    }
+
+    public String getNumeroDocument() {
+        return numeroDocument;
+    }
+
+    public void setNumeroDocument(String numeroDocument) {
+        this.numeroDocument = numeroDocument;
+    }
+
+    public String getICE() {
+        return ICE;
+    }
+
+    public void setICE(String ICE) {
+        this.ICE = ICE;
+    }
+
+    public String getEmailPersonnel() {
+        return emailPersonnel;
+    }
+
+    public void setEmailPersonnel(String emailPersonnel) {
+        this.emailPersonnel = emailPersonnel;
+    }
+
+    public String getActivite() {
+        return activite;
+    }
+
+    public void setActivite(String activite) {
+        this.activite = activite;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -292,7 +372,7 @@ public class ClientDTO implements Serializable {
     @Override
     public String toString() {
         return "ClientDTO{" +
-            "id=" + getId() +
-            "}";
+                "id=" + getId() +
+                "}";
     }
 }

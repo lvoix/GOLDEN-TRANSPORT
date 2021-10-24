@@ -103,4 +103,16 @@ public class VehiculeServiceImpl implements VehiculeService {
         log.debug("Request to delete Vehicule : {}", id);
         vehiculeRepository.deleteById(id);
     }
+
+    @Override
+    public Page<VehiculeDTO> findByvehiculeNature(String vehiculeNature, Pageable pageable) {
+               log.debug(" findByvehiculeNature vehicule methode");
+
+            if(vehiculeNature==null){
+                log.debug(" findByvehiculeNature est null");
+            }
+        long vehiculeNatureID = Long.valueOf(vehiculeNature).longValue();
+        return vehiculeRepository.findByVehiculeNature(vehiculeNatureID, pageable)
+                .map(vehiculeMapper::toDto);
+    }
 }

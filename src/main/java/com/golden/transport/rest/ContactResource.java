@@ -34,13 +34,13 @@ public class ContactResource {
 
     @Value("${clientApp.name}")
     private String applicationName;
-    
-    
-    private final  ContactService contactService;
 
-    
+
+    private final ContactService contactService;
+
+
     @Autowired(required = true)
-	public ContactResource(ContactService contactService) {
+    public ContactResource(ContactService contactService) {
         this.contactService = contactService;
     }
 
@@ -49,18 +49,18 @@ public class ContactResource {
      *
      * @param ContactDTO the ContactDTO to create.
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new ContactDTO, or with status {@code 400 (Bad Request)} if the Contact has already an ID.
-     * @throws Exception 
+     * @throws Exception
      */
     @PostMapping("/contacts")
     public ResponseEntity<ContactDTO> createContact(@RequestBody ContactDTO contactDTO) throws Exception {
         log.debug("REST request to save Contact : {}", contactDTO);
         if (contactDTO.getId() != null) {
-            throw new Exception("A new Contact cannot already have an ID"+ENTITY_NAME+"idexists");
+            throw new Exception("A new Contact cannot already have an ID" + ENTITY_NAME + "idexists");
         }
         ContactDTO result = contactService.save(contactDTO);
         return ResponseEntity.created(new URI("/api/contacts/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false,ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
 
     /**
@@ -70,18 +70,18 @@ public class ContactResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated ContactDTO,
      * or with status {@code 400 (Bad Request)} if the ContactDTO is not valid,
      * or with status {@code 500 (Internal Server Error)} if the ContactDTO couldn't be updated.
-     * @throws Exception 
+     * @throws Exception
      */
     @PutMapping("/contacts")
     public ResponseEntity<ContactDTO> updateContact(@RequestBody ContactDTO contactDTO) throws Exception {
         log.debug("REST request to update Contact : {}", contactDTO);
         if (contactDTO.getId() == null) {
-            throw new Exception("Invalid id"+ENTITY_NAME+ "idnull");
+            throw new Exception("Invalid id" + ENTITY_NAME + "idnull");
         }
         ContactDTO result = contactService.save(contactDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false,ENTITY_NAME, contactDTO.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, contactDTO.getId().toString()))
+                .body(result);
     }
 
     /**
@@ -121,6 +121,6 @@ public class ContactResource {
     public ResponseEntity<Void> deleteContact(@PathVariable Long id) {
         log.debug("REST request to delete Contact : {}", id);
         contactService.delete(id);
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false,ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
     }
 }

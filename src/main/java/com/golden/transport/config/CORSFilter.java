@@ -16,7 +16,7 @@ import java.io.IOException;
 public class CORSFilter implements Filter {
 
     @Value("${permitted-url}")
-    private String permittedUrl = "";
+    private String permittedUrl = "*";
 
     @Override
     public void init(FilterConfig fc) throws ServletException {
@@ -34,6 +34,7 @@ public class CORSFilter implements Filter {
         response.setHeader("Access-Control-Allow-Headers",
                 "x-requested-with, authorization, Content-Type, Authorization, credential, X-XSRF-TOKEN, X-Total-Count");
         response.setHeader("Access-Control-Expose-Headers","X-Total-Count");
+        //response.setHeader("Access-Control-Expose-Headers","X-Pagination");
 
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);

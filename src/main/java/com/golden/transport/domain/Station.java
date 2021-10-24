@@ -52,7 +52,6 @@ public class Station implements Serializable {
 
     @Column(name = "ORDERE")
     private Integer ordere;
-
     @ManyToOne
     @JoinColumn(name = "OPERATION_ID")
     private Operation operations ;

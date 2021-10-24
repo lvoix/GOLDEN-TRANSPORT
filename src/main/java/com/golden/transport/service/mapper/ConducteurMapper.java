@@ -9,21 +9,21 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Conducteur} and its DTO {@link ConducteurDTO}.
  */
-@Mapper(componentModel = "spring", uses = {OperationMapper.class})
+@Mapper(componentModel = "spring", uses = {})
 public interface ConducteurMapper extends EntityMapper<ConducteurDTO, Conducteur> {
 
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "beneficiaire", target = "beneficiaire")
-    @Mapping(source = "cni", target = "cni")
-
-        //@Mapping(source = "operations", target = "operations")
+    @Mapping(source = "cin", target = "cin")
+    @Mapping(source = "nom", target = "nom")
+    @Mapping(source = "prenom", target = "prenom")
+    @Mapping(source = "npasseport", target = "npasseport")
     ConducteurDTO toDto(Conducteur conducteur);
 
 
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "cni", target = "cni")
-    @Mapping(source = "beneficiaire", target = "beneficiaire")
-        //@Mapping(source = "operations", target = "operations")
+    @Mapping(source = "cin", target = "cin")
+    @Mapping(source = "nom", target = "nom")
+    @Mapping(source = "prenom", target = "prenom")
     Conducteur toEntity(ConducteurDTO conducteurDTO);
 
     default Conducteur fromId(Long id) {

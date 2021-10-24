@@ -36,6 +36,7 @@ import javax.websocket.server.PathParam;
  * REST controller for managing {@link Operation}.
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 public class OperationResource {
 

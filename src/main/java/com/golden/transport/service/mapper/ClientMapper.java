@@ -14,13 +14,13 @@ public interface ClientMapper extends EntityMapper<ClientDTO, Client> {
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "name", target = "name")
-    @Mapping(source = "address", target = "address")
+   // @Mapping(source = "address", target = "address")
     ClientDTO toDto(Client client);
 
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "name", target = "name")
-    @Mapping(source = "address", target = "address")
+   // @Mapping(source = "address", target = "address")
     Client toEntity(ClientDTO clientDTO);
 
     default Client fromId(Long id) {

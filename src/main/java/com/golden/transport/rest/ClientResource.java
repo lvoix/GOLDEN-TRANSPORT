@@ -7,6 +7,7 @@ import com.golden.transport.service.dto.ClientDTO;
 import com.golden.transport.util.HeaderUtil;
 import com.golden.transport.util.PaginationUtil;
 import com.golden.transport.util.ResponseUtil;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing {@link Client}.
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 public class ClientResource {
 
@@ -36,6 +39,7 @@ public class ClientResource {
     @Value("${clientApp.name}")
     private String applicationName;
 
+    private ModelMapper modelMapper = new ModelMapper();
 
     private final ClientService clientService;
 
@@ -101,6 +105,13 @@ public class ClientResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 */
+    @GetMapping("/clients/all")
+    public ListResponse<ClientDTO> getAllClients(Pageable pageable) {
+        Pageable wholePage = Pageable.unpaged();
+        return new ListResponse<>(clientService.findAll(wholePage).stream()
+                .map(client -> modelMapper.map(client, ClientDTO.class)).collect(Collectors.toList()));
+    }
+
 
     @GetMapping("/clients")
     public ListResponse<ClientDTO> getClientsByUserId(@PathParam("userId") Long userId) {

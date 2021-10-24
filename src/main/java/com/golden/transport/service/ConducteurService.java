@@ -3,6 +3,7 @@ package com.golden.transport.service;
 import com.golden.transport.domain.Conducteur;
 import com.golden.transport.service.dto.ConducteurDTO;
 
+import com.golden.transport.service.dto.criteresRechercheCondDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -26,6 +27,8 @@ public interface ConducteurService {
      */
     Page<ConducteurDTO> findAll(int page, int size, String sortBy);
 
+
+    Page<ConducteurDTO> findAll(Pageable pageable);
     /**
      * Get the "id" chauffeur.
      *
@@ -33,6 +36,8 @@ public interface ConducteurService {
      * @return the entity.
      */
     Optional<ConducteurDTO> findOne(Long id);
+
+    Optional<ConducteurDTO> findOneByCritere(criteresRechercheCondDTO criteresRecherchecondDTO);
 
     /**
      * Delete the "id" chauffeur.

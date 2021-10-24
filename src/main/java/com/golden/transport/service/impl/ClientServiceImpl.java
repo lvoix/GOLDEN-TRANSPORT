@@ -50,6 +50,7 @@ public class ClientServiceImpl implements ClientService {
     public ClientDTO save(ClientDTO clientDTO) {
         log.debug("Request to save Client : {}", clientDTO);
         Client client = clientMapper.toEntity(clientDTO);
+        client.setName(clientDTO.getRaisonSociale());
         client = clientRepository.save(client);
         return clientMapper.toDto(client);
     }

@@ -5,7 +5,12 @@ package com.golden.transport.enumeration;
  */
 public enum ConducteurType {
 
-    INTGRER("Integrer"), RAPID("Rapid"), ANALYSTE("Analyste"), DISTRIBUTOR("Distributor"), PROVIDER("Provider"), OTHERS("Others");
+    INTGRER("Integrer"),
+    RAPID("Rapid"),
+    ANALYSTE("Analyste"),
+    DISTRIBUTOR("Distributor"),
+    PROVIDER("Provider"),
+    OTHERS("Others");
     private final String type;
 
     ConducteurType(String type) {

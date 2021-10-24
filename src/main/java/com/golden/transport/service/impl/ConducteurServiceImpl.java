@@ -4,6 +4,7 @@ import com.golden.transport.domain.Conducteur;
 import com.golden.transport.service.ConducteurService;
 import com.golden.transport.repository.ConducteurRepository;
 import com.golden.transport.service.dto.ConducteurDTO;
+import com.golden.transport.service.dto.criteresRechercheCondDTO;
 import com.golden.transport.service.mapper.ConducteurMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.Optional;
 
 
@@ -43,6 +45,12 @@ public class ConducteurServiceImpl implements ConducteurService {
     public ConducteurDTO save(ConducteurDTO conducteurDTO) {
         log.debug("Request to save conducteur : {}", conducteurDTO);
         Conducteur conducteur = conducteurMapper.toEntity(conducteurDTO);
+        conducteur.setDateNaissance(conducteurDTO.getDateNaissance());
+        if (conducteurDTO.getId() == null)
+            conducteur.setDateCreation(new Date());
+        else
+            conducteur.setDateModification(new Date());
+
         conducteur = conducteurRepository.save(conducteur);
         return conducteurMapper.toDto(conducteur);
     }
@@ -61,6 +69,14 @@ public class ConducteurServiceImpl implements ConducteurService {
             .map(conducteurMapper::toDto);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Page<ConducteurDTO> findAll(Pageable pageable) {
+        log.debug("Request to get all Operations");
+        return conducteurRepository.findAll(pageable)
+                .map(conducteurMapper::toDto);
+    }
+
     /**
      * Get one conducteur by id.
      *
@@ -75,6 +91,14 @@ public class ConducteurServiceImpl implements ConducteurService {
             .map(conducteurMapper::toDto);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<ConducteurDTO> findOneByCritere(criteresRechercheCondDTO criteresRecherchecondDTO) {
+        log.debug("Request to get conducteur : {}", criteresRecherchecondDTO.getId());
+        Long id = Long.valueOf(18);
+         Optional<ConducteurDTO>  var = conducteurRepository.findByCritere(id, criteresRecherchecondDTO.getCin(), criteresRecherchecondDTO.getNpasseport()).map(conducteurMapper::toDto);
+        return var;
+    }
     /**
      * Delete the conducteur by id.
      *

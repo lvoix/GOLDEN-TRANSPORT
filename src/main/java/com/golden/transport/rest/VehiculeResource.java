@@ -3,9 +3,12 @@ package com.golden.transport.rest;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.golden.transport.domain.Vehicule;
+import com.golden.transport.response.ListResponse;
 import com.golden.transport.service.dto.VehiculeDTO;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,7 @@ import com.golden.transport.util.ResponseUtil;
  * REST controller for managing {@link Vehicule}.
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 public class VehiculeResource {
 
@@ -34,10 +38,14 @@ public class VehiculeResource {
 
     private static final String ENTITY_NAME = "vehicule";
 
+    private final VehiculeService vehiculeService;
+
     @Value("${clientApp.name}")
     private String applicationName;
 
-    private final VehiculeService vehiculeService;
+    private ModelMapper modelMapper = new ModelMapper();
+
+
     @Autowired(required = true)
     public VehiculeResource(VehiculeService vehiculeService) {
         this.vehiculeService = vehiculeService;
@@ -110,6 +118,23 @@ public class VehiculeResource {
         Optional<VehiculeDTO> vehiculeDTO = vehiculeService.findOne(id);
         return ResponseUtil.wrapOrNotFound(vehiculeDTO);
     }
+
+/*    @GetMapping(value = "vehicule/list/byNature")
+    public ResponseEntity<List<VehiculeDTO>> findVehiculesByNature(@RequestParam String nature , Pageable pageable) {
+        log.debug("start");
+        Page<VehiculeDTO> vehiculesDTO = vehiculeService.findByvehiculeNature(nature, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), vehiculesDTO);
+        ResponseEntity<List<VehiculeDTO>> res = ResponseEntity.ok().headers(headers).body(vehiculesDTO.getContent());
+        return res ;
+    }*/
+
+    @GetMapping("vehicule/list/byNature")
+    public ListResponse<VehiculeDTO> findVehiculesByNature(@RequestParam String nature ,Pageable pageable) {
+        Pageable wholePage = Pageable.unpaged();
+        return new ListResponse<>(vehiculeService.findByvehiculeNature(nature, pageable).stream()
+                .map(vehicules -> modelMapper.map(vehicules, VehiculeDTO.class)).collect(Collectors.toList()));
+    }
+
 
     /**
      * {@code DELETE  /vehicules/:id} : delete the "id" vehicule.

@@ -39,4 +39,8 @@ public interface VehiculeService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+
+    Page<VehiculeDTO> findByvehiculeNature(String vehiculeNature , Pageable pageable);
+
 }

@@ -108,6 +108,16 @@ public class Vehicule implements Serializable {
     @JoinColumn(name = "BENEFICIAIRE_ID")
     private Beneficiaire beneficiaires;
 
+
+    @ManyToOne
+    @JoinColumn(name = "VEHICULENATURE_ID")
+    private VehiculeNature vehiculeNature;
+
+
+    @Column(name = "VEHICULESNATURE_ID")
+    private Long vehiculesNature;
+
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
@@ -310,6 +320,23 @@ public class Vehicule implements Serializable {
 
     public void setMiseCirculation(Date miseCirculation) {
         this.miseCirculation = miseCirculation;
+    }
+
+
+    public VehiculeNature getVehiculeNature() {
+        return vehiculeNature;
+    }
+
+    public void setVehiculeNature(VehiculeNature vehiculeNature) {
+        this.vehiculeNature = vehiculeNature;
+    }
+
+    public Long getVehiculesNature() {
+        return vehiculesNature;
+    }
+
+    public void setVehiculesNature(Long vehiculesNature) {
+        this.vehiculesNature = vehiculesNature;
     }
 
     @Override

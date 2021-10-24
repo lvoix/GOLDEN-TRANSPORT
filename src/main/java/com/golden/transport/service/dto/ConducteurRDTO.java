@@ -12,12 +12,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-public class ConducteurDTO implements Serializable {
+public class ConducteurRDTO implements Serializable {
     
     private Long id;
     private ConducteurType conducteurType;
     private Date dateCreation;
-    private Date dateModification;
     private String name;
     private String firstName;
     private String lastName;
@@ -325,13 +324,5 @@ public class ConducteurDTO implements Serializable {
 
     public void setCin(String cin) {
         this.cin = cin;
-    }
-
-    public Date getDateModification() {
-        return dateModification;
-    }
-
-    public void setDateModification(Date dateModification) {
-        this.dateModification = dateModification;
     }
 }

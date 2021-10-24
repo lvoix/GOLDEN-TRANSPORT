@@ -5,5 +5,5 @@ package com.golden.transport.enumeration;
  */
 public enum CustomerType {
 
-    COMPANY, PERSONNEL;
+    START ,COMPANY, PERSONNEL;
 }

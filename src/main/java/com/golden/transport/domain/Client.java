@@ -22,6 +22,27 @@ public class Client implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "GERANT", length = 255)
+    private String gerant;
+
+    @Column(name = "RESPONSABLE", length = 255)
+    private String responsable;
+
+    @Column(name = "NOM", length = 255)
+    private String nom;
+
+    @Column(name = "PRENOM", length = 255)
+    private String prenom;
+
+    @Column(name = "NAME", length = 255)
+    private String name;
+
+    @Column(name = "RAISON_SOCIALE", length = 255)
+    private String raisonSociale;
+
+    @Column(name = "FORME_JURIDIQUE", length = 255)
+    private FormeJuridique formeJuridique;
+
     @Column(name = "TYPE",length = 255)
     @Enumerated(EnumType.STRING)
     private CustomerType customerType;
@@ -31,14 +52,32 @@ public class Client implements Serializable {
     @Column(name = "DATE_CREATION", updatable = false)
     private Date dateCreation;
 
-    @Column(name = "NAME", length = 255)
-    private String name;
+    @Column(name = "TypeDocument", length = 255)
+    private TypeDocument typeDocument;
 
-    @Column(name = "FIRST_NAME", length = 255)
-    private String firstName;
+    @Column(name = "NumeroDocument", length = 255)
+    private String numeroDocument;
 
-    @Column(name = "LAST_NAME", length = 255)
-    private String lastName;
+    @Column(name = "RC", length = 255)
+    private String rc;
+
+    @Column(name = "PATENTE", length = 255)
+    private String patente;
+
+    @Column(name = "CNSS", length = 255)
+    private String cnss;
+
+    @Column(name = "I_FISCALE", length = 255)
+    private String tp;
+
+    @Column(name = "ICE", length = 255)
+    private String ICE;
+
+    @Column(name = "CIN", length = 255)
+    private String CIN;
+
+    @Column(name = "ABREVIATION")
+    private ABERIVAITION abr;
 
     @Column(name = "MORE_REF", length = 255)
     private String ref;
@@ -49,18 +88,18 @@ public class Client implements Serializable {
     @Column(name = "JOB_TITLE", length = 255)
     private String jobTitle;
 
-    @Column(name = "BEN_EMAIL", length = 255)
+    @Column(name = "ENTITE_EMAIL", length = 255)
     private String email;
+
+    @Column(name = "EMAIL_PERSONNEL", length = 255)
+    private String emailPersonnel;
+
 
     @Column(name = "PHONE_NUMBER", length = 255)
     private String phoneNumber;
 
     @Column(name = "STATUS", length = 255)
     private CustomerStatus status;
-
-    @Column(name = "CLIENT_TYPE")
-    @Enumerated(EnumType.STRING)
-    private ClientType type;
 
     @Column(name = "INDUSTRY")
     @Enumerated(EnumType.STRING)
@@ -82,11 +121,17 @@ public class Client implements Serializable {
     @Column(name = "PERMITED", length = 255)
     private Boolean permited;
 
+    @Column(name = "ACCEPTTERMS", length = 255)
+    private Boolean acceptTerms;
+
     @Column(name = "NAF", length = 255)
     private String codeNAF;
 
     @Column(name = "EMPLOYEES", length = 255)
     private Integer employees;
+
+    @Column(name = "CAPITAL", length = 255)
+    private Integer capital;
 
     @Column(name = "TWITTER", length = 255)
     private String twitter;
@@ -100,11 +145,12 @@ public class Client implements Serializable {
     @Column(name = "BUSINESS_SECTOR", length = 255)
     private String businessSector;
 
+    @Column(name = "ACTIVITE", length = 255)
+    private String activite;
+
 /*    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CLIENT_PARENT_ID")
     Client parent;*/
-
-
 
     @ManyToOne
     @JoinColumn(name="users")
@@ -133,6 +179,69 @@ public class Client implements Serializable {
         this.id = id;
     }
 
+    public String getRaisonSociale() {
+        return raisonSociale;
+    }
+
+    public void setRaisonSociale(String raisonSociale) {
+        this.raisonSociale = raisonSociale;
+    }
+
+    public String getEmailPersonnel() {
+        return emailPersonnel;
+    }
+
+    public void setEmailPersonnel(String emailPersonnel) {
+        this.emailPersonnel = emailPersonnel;
+    }
+
+    public String getActivite() {
+        return activite;
+    }
+
+    public void setActivite(String activite) {
+        this.activite = activite;
+    }
+
+    public FormeJuridique getFormeJuridique() {
+        return formeJuridique;
+    }
+
+    public void setFormeJuridique(FormeJuridique formeJuridique) {
+        this.formeJuridique = formeJuridique;
+    }
+
+    public Integer getCapital() {
+        return capital;
+    }
+
+    public void setCapital(Integer capital) {
+        this.capital = capital;
+    }
+
+    public String getResponsable() {
+        return responsable;
+    }
+
+    public void setResponsable(String responsable) {
+        this.responsable = responsable;
+    }
+
+    public TypeDocument getTypeDocument() {
+        return typeDocument;
+    }
+
+    public void setTypeDocument(TypeDocument typeDocument) {
+        this.typeDocument = typeDocument;
+    }
+
+    public String getNumeroDocument() {
+        return numeroDocument;
+    }
+
+    public void setNumeroDocument(String numeroDocument) {
+        this.numeroDocument = numeroDocument;
+    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -160,22 +269,6 @@ public class Client implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getRef() {
@@ -216,22 +309,6 @@ public class Client implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public CustomerStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(CustomerStatus status) {
-        this.status = status;
-    }
-
-    public ClientType getType() {
-        return type;
-    }
-
-    public void setType(ClientType type) {
-        this.type = type;
     }
 
     public Industry getIndustry() {
@@ -385,6 +462,102 @@ public class Client implements Serializable {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public String getGerant() {
+        return gerant;
+    }
+
+    public void setGerant(String gerant) {
+        this.gerant = gerant;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getRc() {
+        return rc;
+    }
+
+    public void setRc(String rc) {
+        this.rc = rc;
+    }
+
+    public String getPatente() {
+        return patente;
+    }
+
+    public void setPatente(String patente) {
+        this.patente = patente;
+    }
+
+    public String getCnss() {
+        return cnss;
+    }
+
+    public void setCnss(String cnss) {
+        this.cnss = cnss;
+    }
+
+    public String getTp() {
+        return tp;
+    }
+
+    public void setTp(String tp) {
+        this.tp = tp;
+    }
+
+    public String getICE() {
+        return ICE;
+    }
+
+    public void setICE(String ICE) {
+        this.ICE = ICE;
+    }
+
+    public ABERIVAITION getAbr() {
+        return abr;
+    }
+
+    public void setAbr(ABERIVAITION abr) {
+        this.abr = abr;
+    }
+
+    public CustomerStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(CustomerStatus status) {
+        this.status = status;
+    }
+
+    public Boolean getAcceptTerms() {
+        return acceptTerms;
+    }
+
+    public void setAcceptTerms(Boolean acceptTerms) {
+        this.acceptTerms = acceptTerms;
+    }
+
+    public String getCIN() {
+        return CIN;
+    }
+
+    public void setCIN(String CIN) {
+        this.CIN = CIN;
     }
 
     @Override

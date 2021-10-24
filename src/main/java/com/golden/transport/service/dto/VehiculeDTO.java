@@ -1,6 +1,7 @@
 package com.golden.transport.service.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.golden.transport.domain.VehiculeNature;
 import com.golden.transport.enumeration.VehiculeColor;
 import com.golden.transport.enumeration.VehiculeGenre;
 import com.golden.transport.enumeration.VehiculeStatus;
@@ -66,6 +67,10 @@ public class VehiculeDTO implements Serializable {
     private BeneficiaireDTO beneficiaires;
 
     private Set<OperLineVehDTO> lineoperations = new HashSet<>();
+
+    private VehiculeNatureDTO vehiculeNature;
+
+    private Long vehiculesNature;
 
     public Long getId() {
         return id;
@@ -265,5 +270,21 @@ public class VehiculeDTO implements Serializable {
 
     public void setMiseCirculation(Date miseCirculation) {
         this.miseCirculation = miseCirculation;
+    }
+
+    public VehiculeNatureDTO getVehiculeNature() {
+        return vehiculeNature;
+    }
+
+    public void setVehiculeNature(VehiculeNatureDTO vehiculeNature) {
+        this.vehiculeNature = vehiculeNature;
+    }
+
+    public Long getVehiculesNature() {
+        return vehiculesNature;
+    }
+
+    public void setVehiculesNature(Long vehiculesNature) {
+        this.vehiculesNature = vehiculesNature;
     }
 }

@@ -18,7 +18,6 @@ public interface VehiculeMapper extends EntityMapper<VehiculeDTO, Vehicule> {
     @Mapping(source = "miseCirculation", target = "miseCirculation")
     @Mapping(source = "dateMiseCirculation", target = "dateMiseCirculation")
 
-
         //@Mapping(source = "lineoperations", target = "lineoperations")
     VehiculeDTO toDto(Vehicule vehicule);
 
@@ -29,6 +28,7 @@ public interface VehiculeMapper extends EntityMapper<VehiculeDTO, Vehicule> {
     @Mapping(source = "miseCirculation", target = "miseCirculation")
     @Mapping(source = "dateMiseCirculation", target = "dateMiseCirculation")
     @Mapping(source = "beneficiaires", target = "beneficiaires")
+
         //@Mapping(source = "lineoperations", target = "lineoperations")
     Vehicule toEntity(VehiculeDTO vehiculeDTO);
 

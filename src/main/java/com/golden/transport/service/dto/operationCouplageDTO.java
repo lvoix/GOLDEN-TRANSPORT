@@ -5,9 +5,9 @@ import java.io.Serializable;
 public class operationCouplageDTO implements Serializable {
 
     private Long id;
-    private ConducteurDTO conducteurs1;
-    private ConducteurDTO conducteurs2;
-    private ClientDTO client;
+    private String conducteurs1;
+    private String conducteurs2;
+    private String client;
 
 
     public Long getId() {
@@ -18,27 +18,27 @@ public class operationCouplageDTO implements Serializable {
         this.id = id;
     }
 
-    public ConducteurDTO getConducteurs1() {
+    public String getConducteurs1() {
         return conducteurs1;
     }
 
-    public void setConducteurs1(ConducteurDTO conducteurs1) {
+    public void setConducteurs1(String conducteurs1) {
         this.conducteurs1 = conducteurs1;
     }
 
-    public ConducteurDTO getConducteurs2() {
+    public String getConducteurs2() {
         return conducteurs2;
     }
 
-    public void setConducteurs2(ConducteurDTO conducteurs2) {
+    public void setConducteurs2(String conducteurs2) {
         this.conducteurs2 = conducteurs2;
     }
 
-    public ClientDTO getClient() {
+    public String getClient() {
         return client;
     }
 
-    public void setClient(ClientDTO client) {
+    public void setClient(String client) {
         this.client = client;
     }
 }

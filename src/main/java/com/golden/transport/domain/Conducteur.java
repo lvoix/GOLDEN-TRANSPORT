@@ -40,11 +40,31 @@ public class Conducteur implements Serializable {
     @Column(name = "LAST_NAME", length = 255)
     private String lastName;
 
+    @Column(name = "NOM", length = 255)
+    private String nom;
+
+    @Column(name = "PRENOM", length = 255)
+    private String prenom;
+
+    @Column(name = "NIKENAME", length = 255)
+    private String nikename;
+
+    @Column(name = "DATE_NAISSANCE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateNaissance;
+
+    @Column(name = "DATE_MODIFICATION")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateModification;
+
     @Column(name = "MORE_REF", length = 255)
     private String ref;
 
     @Column(name = "CNI", length = 255)
     private String cni;
+
+    @Column(name = "CIN", length = 255)
+    private String cin;
 
     @Column(name = "CNSS", length = 255)
     private String cnss;
@@ -345,6 +365,54 @@ public class Conducteur implements Serializable {
 
     public void setBeneficiaire(Beneficiaire beneficiaire) {
         this.beneficiaire = beneficiaire;
+    }
+
+    public Date getDateNaissance() {
+        return dateNaissance;
+    }
+
+    public void setDateNaissance(Date dateNaissance) {
+        this.dateNaissance = dateNaissance;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getNikename() {
+        return nikename;
+    }
+
+    public void setNikename(String nikename) {
+        this.nikename = nikename;
+    }
+
+    public String getCin() {
+        return cin;
+    }
+
+    public void setCin(String cin) {
+        this.cin = cin;
+    }
+
+    public Date getDateModification() {
+        return dateModification;
+    }
+
+    public void setDateModification(Date dateModification) {
+        this.dateModification = dateModification;
     }
 
     @Override
