@@ -25,6 +25,7 @@ public class Station implements Serializable {
     @Column(name = "NAME", length = 255)
     private String name;
 
+
     @Column(name = "COORDX", length = 255)
     private String coordX;
 
