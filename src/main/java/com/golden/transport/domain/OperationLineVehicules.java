@@ -16,6 +16,9 @@ public class OperationLineVehicules implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "NUMERORDER")
+    private Long numerOrder ;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "OPERATION_ID")
     private Operation operations;
@@ -35,6 +38,14 @@ public class OperationLineVehicules implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getNumerOrder() {
+        return numerOrder;
+    }
+
+    public void setNumerOrder(Long numerOrder) {
+        this.numerOrder = numerOrder;
     }
 
     public Operation getOperations() {

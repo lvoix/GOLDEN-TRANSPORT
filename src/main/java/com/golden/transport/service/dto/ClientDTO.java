@@ -12,13 +12,14 @@ public class ClientDTO {
 
     private String name;
 
-    private CustomerType customerType;
+    private String raisonSociale;
+
+ /*   private CustomerType customerType;
 
     private Date dateCreation;
 
     private String responsable;
 
-    private String raisonSociale;
 
     private FormeJuridique formeJuridique;
 
@@ -84,13 +85,13 @@ public class ClientDTO {
         this.id = id;
     }
 
-/*    public AddressDTO getAddress() {
+*//*    public AddressDTO getAddress() {
         return address;
     }
 
     public void setAddress(AddressDTO address) {
         this.address = address;
-    }*/
+    }*//*
 
     public String getName() {
         return name;
@@ -374,5 +375,29 @@ public class ClientDTO {
         return "ClientDTO{" +
                 "id=" + getId() +
                 "}";
+    }*/
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getRaisonSociale() {
+        return raisonSociale;
+    }
+
+    public void setRaisonSociale(String raisonSociale) {
+        this.raisonSociale = raisonSociale;
     }
 }

@@ -7,6 +7,8 @@ public class AssocaidTOOperLineConDTO implements Serializable {
 
     private Long id;
 
+    private Long numerOrder ;
+
     private AssociadToConducteurDTO conducteurs;
 
     public Long getId() {
@@ -15,6 +17,14 @@ public class AssocaidTOOperLineConDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getNumerOrder() {
+        return numerOrder;
+    }
+
+    public void setNumerOrder(Long numerOrder) {
+        this.numerOrder = numerOrder;
     }
 
     public AssociadToConducteurDTO getConducteurs() {

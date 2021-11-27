@@ -8,11 +8,7 @@ import java.util.stream.Collectors;
 import com.golden.transport.domain.Operation;
 import com.golden.transport.response.ListResponse;
 import com.golden.transport.response.SingleResponse;
-import com.golden.transport.service.dto.ClientDTO;
-import com.golden.transport.service.dto.OperationADDDTO;
-import com.golden.transport.service.dto.operationTiersAddDTO;
-import com.golden.transport.service.dto.OperationDTO;
-import com.golden.transport.service.dto.OperationUpdateDTO;
+import com.golden.transport.service.dto.*;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,7 +74,7 @@ public class OperationResource {
        if (operationDTO.getId() != null) {
             throw new Exception("A new operation cannot already have an ID"+ENTITY_NAME+ "idexists");
         }
-        OperationDTO result = operationService.save(null);
+        OperationDTO result = operationService.save(operationDTO);
         return ResponseEntity.created(new URI("/api/operations/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -94,13 +90,17 @@ public class OperationResource {
      * or with status {@code 500 (Internal Server Error)} if the operationDTO couldn't be updated.
      * @throws Exception if the Location URI syntax is incorrect.
      */
-    @PutMapping("/operations")
-    public ResponseEntity<OperationDTO> updateOperation(@RequestBody OperationADDDTO operationDTO) throws Exception {
+    @PutMapping("/operations/edit")
+    public ResponseEntity<OperationDTO> updateOperation(@RequestBody OperationDTO operationDTO) throws Exception {
         log.debug("REST request to update Operation : {}", operationDTO);
+        OperationDTO result = null;
         if (operationDTO.getId() == null) {
             throw new Exception("Invalid id"+ENTITY_NAME+ "idnull");
         }
-        OperationDTO result = operationService.save(operationDTO);
+        OperationDTO opeDTO = operationService.getOperation1(operationDTO.getId());
+        if(!operationDTO.equals(opeDTO)){
+            result = operationService.saveNormal(operationDTO);
+        }
 
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, operationDTO.getId().toString()))
@@ -129,6 +129,14 @@ public class OperationResource {
                 .map(operation -> modelMapper.map(operation, OperationDTO.class)).collect(Collectors.toList()));
     }
 
+    @GetMapping("/operations/pg")
+    public ResponseEntity<List<OperationDTO>> getOperationsAll(Pageable pageable) {
+        log.debug("REST request to get a page of Operations");
+        Page<OperationDTO> page = operationService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        ResponseEntity<List<OperationDTO>> res = ResponseEntity.ok().headers(headers).body(page.getContent());
+        return res ;
+    }
     /**
      * {@code GET  /operations/:id} : get the "id" operation.
      *
@@ -142,10 +150,33 @@ public class OperationResource {
         return ResponseUtil.wrapOrNotFound(operationDTO);
     }
 
+    @GetMapping("/operations/{id}/history")
+    public List<OperationDTO> getOperationEditHistory(@PathVariable Long id){
+        return operationService.getoperationServiceEditHistory(id);
+    }
+
 
     @GetMapping(value = "/operations/operation")
     public SingleResponse<OperationDTO> getOperation1(@PathParam("operationId") Long operationId){
-        return new SingleResponse<>(operationService.getOperation1(operationId));
+
+        OperationDTO opeDTO = operationService.getOperation1(operationId);
+
+            for(AssocaidTOOperLineConDTO lineCon : opeDTO.getConducteurs()){
+                if(lineCon.getNumerOrder() == 1)
+                   opeDTO.setConducteurs1(lineCon.getConducteurs().getId());
+                else if(lineCon.getNumerOrder() == 2)
+                     opeDTO.setConducteurs2(lineCon.getConducteurs().getId());
+                else
+                     opeDTO.setConducteurs3(lineCon.getConducteurs().getId());
+            }
+
+            for(AssociadToOperLineVehDTO lineVeh: opeDTO.getVehicules()){
+                if(lineVeh.getNumerOrder() == 1)
+                    opeDTO.setVehicule1(lineVeh.getVehicules().getId());
+                else
+                    opeDTO.setVehicule2(lineVeh.getVehicules().getId());
+            }
+        return new SingleResponse<>(opeDTO);
     }
 
     /**

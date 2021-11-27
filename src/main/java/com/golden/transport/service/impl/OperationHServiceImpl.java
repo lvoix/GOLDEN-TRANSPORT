@@ -3,10 +3,13 @@ package com.golden.transport.service.impl;
 import com.golden.transport.domain.*;
 import com.golden.transport.enumeration.OperationStatus;
 import com.golden.transport.repository.OperationRepository;
+import com.golden.transport.repository.Operation_HRepository;
 import com.golden.transport.service.DepencesService;
+import com.golden.transport.service.OperationHService;
 import com.golden.transport.service.OperationService;
 import com.golden.transport.service.dto.*;
 import com.golden.transport.service.mapper.*;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,22 +18,23 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.modelmapper.ModelMapper;
+
 import java.util.*;
 
 
 @Service
 @Transactional
-public class OperationServiceImpl implements OperationService {
+public class OperationHServiceImpl implements OperationHService  {
 
-    private final Logger log = LoggerFactory.getLogger(OperationServiceImpl.class);
+    private final Logger log = LoggerFactory.getLogger(OperationHServiceImpl.class);
 
     private final OperationRepository operationRepository;
-
+    private final Operation_HRepository  operation_HRepository;
     private final OperationADDMapper operationADDMapper;
     private final OperationTiersAddMapper operationTiersAddMapper;
 
     private final OperationMapper operationMapper;
+
     private final AddressMapper addressMapper;
     private final StationMapper stationMapper;
     private final DepencesMapper  depencesMapper;
@@ -42,11 +46,13 @@ public class OperationServiceImpl implements OperationService {
 
 
     @Autowired(required = true)
-    public OperationServiceImpl(OperationRepository operationRepository, OperationMapper operationMapper,OperationADDMapper operationADDMapper, AddressMapper addressMapper,
-                                StationMapper stationMapper, DepencesService depencesService,
-                                DepencesMapper  depencesMapper, OperationTiersAddMapper operationTiersAddMapper
-                                ,DepencesAddMapper  depencesAddMapper) {
+    public OperationHServiceImpl(OperationRepository operationRepository, OperationMapper operationMapper, OperationADDMapper operationADDMapper, AddressMapper addressMapper,
+                                 StationMapper stationMapper, DepencesService depencesService,
+                                 DepencesMapper  depencesMapper, OperationTiersAddMapper operationTiersAddMapper,
+                                 DepencesAddMapper  depencesAddMapper,
+                                 Operation_HRepository  operation_HRepository) {
         this.operationRepository = operationRepository;
+        this.operation_HRepository = operation_HRepository;
         this.operationMapper = operationMapper;
         this.operationADDMapper = operationADDMapper;
         this.operationTiersAddMapper = operationTiersAddMapper;
@@ -61,15 +67,15 @@ public class OperationServiceImpl implements OperationService {
     /**
      * Save a operation.
      *
-     * @param operationDTO the entity to save.
+     * @param
      * @return the persisted entity.
      */
+
     @Override
-    public OperationDTO save(operationTiersAddDTO operationDTO) {
-        log.debug("Request to save Operation : {}", operationDTO);
-        Operation operation = preSave(operationDTO);
-        OperationDTO ok = operationMapper.toDto(operation);
-        return ok;
+    public Operation_H save(Operation_H operation) {
+        log.debug("Request to save Operation_H : {}", operation);
+        Operation_H opeResult = operation_HRepository.save(operation);
+        return opeResult;
     }
 
     @Override
@@ -80,12 +86,6 @@ public class OperationServiceImpl implements OperationService {
         Operation operationN = preSaveNormal(operationDTO);
 
         return operationMapper.toDto(operationN);
-    }
-
-    public Operation_H convertTo (Operation operation){
-        Operation_H opera = new Operation_H();
-        //opera.setIdop();
-        return opera;
     }
 
     private Operation preparerOperation(operationTiersAddDTO operationDTO){
@@ -202,9 +202,9 @@ public class OperationServiceImpl implements OperationService {
 
     private Operation preSave(operationTiersAddDTO operationDTO){
 
-       // Operation operation = operationTiersAddMapper.toEntity(operationDTO);
+        Operation operation = operationTiersAddMapper.toEntity(operationDTO);
 
-        Operation  operation = preparerOperation(operationDTO);
+        operation = preparerOperation(operationDTO);
 
         operation.setDateCreation(new Date());
         operation.setFacturer(false);
@@ -378,21 +378,6 @@ public class OperationServiceImpl implements OperationService {
         log.debug("Request to get Operation : {}", id);
         return operationRepository.findById(id)
             .map(operationMapper::toDto);
-    }
-
-    @Override
-    public List<OperationDTO> getoperationServiceEditHistory(Long opeationID) {
-
-        List<OperationDTO> historyList = new ArrayList<OperationDTO>();
-
-        operationRepository.findRevisions(opeationID).get().forEach(x -> {
-            x.getEntity().setEditVersion(x.getMetadata());
-            System.out.println(x);
-            OperationDTO op = operationMapper.toDto(x.getEntity());
-            historyList.add(op);
-        });
-
-        return historyList;
     }
 
     @Override

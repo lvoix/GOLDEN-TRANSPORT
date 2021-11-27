@@ -99,4 +99,32 @@ public class ClientServiceImpl implements ClientService {
         log.debug("Request to delete Client : {}", id);
         clientRepository.deleteById(id);
     }
+
+/*    @Scheduled(cron = "0 0 0 * * ?")
+    public void removeOldPersistentTokens() {
+        LocalDate now = LocalDate.now();
+        persistentTokenRepository.findByTokenDateBefore(now.minusMonths(1)).forEach(token -> {
+            log.debug("Deleting token {}", token.getSeries());
+            User user = token.getUser();
+            user.getPersistentTokens().remove(token);
+            persistentTokenRepository.delete(token);
+        });
+    }
+
+    *//**
+     * Not activated users should be automatically deleted after 3 days.
+     * <p>
+     * This is scheduled to get fired everyday, at 01:00 (am).
+     * </p>
+     *//*
+    @Scheduled(cron = "0 0 1 * * ?")
+    public void removeNotActivatedUsers() {
+        ZonedDateTime now = ZonedDateTime.now();
+        List<User> users = userRepository.findAllByActivatedIsFalseAndCreatedDateBefore(now.minusDays(3));
+        for (User user : users) {
+            log.debug("Deleting not activated user {}", user.getLogin());
+            userRepository.delete(user);
+            userSearchRepository.delete(user);
+        }
+    }*/
 }

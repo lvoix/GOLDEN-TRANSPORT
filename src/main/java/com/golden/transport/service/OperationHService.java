@@ -1,29 +1,25 @@
 package com.golden.transport.service;
 
 import com.golden.transport.domain.Operation;
+import com.golden.transport.domain.Operation_H;
 import com.golden.transport.service.dto.OperationDTO;
-
 import com.golden.transport.service.dto.operationTiersAddDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.Optional;
 
 
-public interface OperationService {
+public interface OperationHService {
 
     /**
      * Save a operation.
      *
      * @return the persisted entity.
      */
-    OperationDTO save(operationTiersAddDTO operationDTO);
+    Operation_H save(Operation_H operation);
 
-
-     List<OperationDTO> getoperationServiceEditHistory(Long opeationID);
-
-     OperationDTO saveNormal(OperationDTO operationDTO);
+    OperationDTO saveNormal(OperationDTO operationDTO);
 
         /**
          * Get all the operations.

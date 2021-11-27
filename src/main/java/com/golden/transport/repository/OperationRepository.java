@@ -3,6 +3,7 @@ package com.golden.transport.repository;
 import com.golden.transport.domain.Operation;
 
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.history.RevisionRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -10,5 +11,5 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface OperationRepository extends JpaRepository<Operation, Long> {
+public interface OperationRepository extends RevisionRepository<Operation, Long, Long>, JpaRepository<Operation, Long> {
 }

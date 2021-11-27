@@ -106,6 +106,12 @@ public class VehiculeResource {
         return res ;
     }
 
+    @GetMapping("/vehicules/all")
+    public ListResponse<VehiculeDTO> getVehiculesAll(Pageable pageable) {
+        Pageable wholePage = Pageable.unpaged();
+        return new ListResponse<>(vehiculeService.findAll(wholePage).stream()
+                .map(conducteur -> modelMapper.map(conducteur, VehiculeDTO.class)).collect(Collectors.toList()));
+    }
     /**
      * {@code GET  /vehicules/:id} : get the "id" vehicule.
      *

@@ -120,6 +120,9 @@ public class Beneficiaire implements Serializable {
     @Embedded
     private Address address;
 
+    @OneToMany(targetEntity = Operation.class , mappedBy="beneficiaire", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    protected Set<Operation> operations = new HashSet<>();
+
     @OneToMany(mappedBy = "beneficiaire", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<Conducteur> conducteurs = new HashSet<>();
 
@@ -411,6 +414,14 @@ public class Beneficiaire implements Serializable {
 
     public void setInvoices(Set<Invoice> invoices) {
         this.invoices = invoices;
+    }
+
+    public Set<Operation> getOperations() {
+        return operations;
+    }
+
+    public void setOperations(Set<Operation> operations) {
+        this.operations = operations;
     }
 
     @Override

@@ -42,4 +42,6 @@ public class operationTiersAddDTO implements Serializable {
     public void setOperationGeneralDetails(operationGeneralDetailsDTO operationGeneralDetails) {
         this.operationGeneralDetails = operationGeneralDetails;
     }
+
+
 }
