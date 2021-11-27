@@ -291,12 +291,10 @@ public class OperationServiceImpl implements OperationService {
             operationLineVehicules2.setOperations(operation);
             operationLineVehicules2.setNumerOrder(Long.valueOf(2));
 
-
         // ajoute les deux vehicule dans operation
         Set<OperationLineVehicules> operationLineVehicules = new HashSet<>();
         operationLineVehicules.add(operationLineVehicules1);
         operationLineVehicules.add(operationLineVehicules2);
-
 
         operation.getVehicules().clear();
         //operation.setVehicules(operationLineVehicules);
